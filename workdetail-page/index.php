@@ -192,8 +192,7 @@
                                     data-widget_type="gridxdaworkdetailprojimg.default">
                                     <div class="elementor-widget-container">
 
-                                        <!-- Start WorkDetail
-    ============================================= -->
+                                        <!-- Start WorkDetail -->
 
                                         <?php if (!empty($project['image2_path'])): ?>
                                         <div class="project-details-2-img mb-24" data-aos="zoom-in">
