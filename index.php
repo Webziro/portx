@@ -6,7 +6,7 @@
     $profile  = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
     $services = $pdo->query("SELECT * FROM services ORDER BY display_order")->fetchAll();
     $latestBlog = $pdo->query("SELECT * FROM blogs ORDER BY display_order, created_at DESC LIMIT 1")->fetch();
-    $latestProjects = $pdo->query("SELECT title FROM projects ORDER BY id DESC LIMIT 3")->fetchAll(PDO::FETCH_COLUMN);
+    $latestProjects = $pdo->query("SELECT id, title FROM projects ORDER BY id DESC LIMIT 3")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -136,12 +136,15 @@
                                             <div class="about-credentials-wrap">
                                                 <div data-aos="zoom-in">
                                                     <div class="banner shadow-box">
+                                                        <p>See my latest work</p>
                                                         <div class="marquee">
                                                             <div style="animation: marquee 8s linear infinite;">
                                                                 <?php if (!empty($latestProjects)): ?>
                                                                     <span>
-                                                                        <?php foreach ($latestProjects as $projectTitle): ?>
-                                                                            <b><?php echo htmlspecialchars(strtoupper($projectTitle)); ?></b>
+                                                                        <?php foreach ($latestProjects as $project): ?>
+                                                                            <a href="workdetail-page/index.php?id=<?php echo $project['id']; ?>" style="color: inherit; text-decoration: none;">
+                                                                                <b><?php echo htmlspecialchars(strtoupper($project['title'])); ?></b>
+                                                                            </a>
                                                                             <img decoding="async" src="wp-content/uploads/2023/04/star1.svg" alt="">
                                                                         <?php endforeach; ?>
                                                                     </span>
