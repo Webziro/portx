@@ -37,7 +37,15 @@ CREATE TABLE IF NOT EXISTS projects (
     title VARCHAR(255),
     category VARCHAR(100),
     image_path VARCHAR(255),
-    project_url VARCHAR(255),
+    client VARCHAR(255),
+    year VARCHAR(50),
+    services TEXT,
+    technologies TEXT,
+    description TEXT,
+    image2_path VARCHAR(255),
+    image3_path VARCHAR(255),
+    image4_path VARCHAR(255),
+    live_url VARCHAR(255),
     is_featured BOOLEAN DEFAULT FALSE,
     display_order INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -79,7 +87,7 @@ INSERT IGNORE INTO services (icon_class, label, display_order) VALUES
 ('iconoir-git-branch', 'Automation', 4);
 
 -- Insert initial projects
-INSERT IGNORE INTO projects (title, category, image_path, project_url, is_featured, display_order) VALUES 
-('Dynamic', 'WEB DESIGNING', 'wp-content/uploads/2023/04/project1.jpg', 'workdetail-page/index.php', TRUE, 1),
-('Diesel H1', 'PHOTOGRAPHY', 'wp-content/uploads/2023/04/project2.jpg', 'workdetail-page/index.php', FALSE, 2),
-('Seven Studio', 'MOBILE DESIGNING', 'wp-content/uploads/2023/04/project3.jpg', 'workdetail-page/index.php', FALSE, 3);
+INSERT IGNORE INTO projects (title, category, image_path, client, year, services, technologies, description, live_url, is_featured, display_order) VALUES 
+('Dynamic', 'WEB DESIGNING', 'wp-content/uploads/2023/04/project1.jpg', 'Raven Studio', '2023', 'Web Design', 'HTML, CSS, JS', 'Detailed description here...', 'https://example.com', TRUE, 1),
+('Diesel H1', 'PHOTOGRAPHY', 'wp-content/uploads/2023/04/project2.jpg', 'Diesel', '2022', 'Photography', 'Camera', 'Photography project...', FALSE, 2),
+('Seven Studio', 'MOBILE DESIGNING', 'wp-content/uploads/2023/04/project3.jpg', 'Seven', '2023', 'App Design', 'React Native', 'Mobile app project...', FALSE, 3);

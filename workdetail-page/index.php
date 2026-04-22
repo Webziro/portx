@@ -314,6 +314,12 @@
                                                             <p>Technologies</p>
                                                             <h5><?php echo htmlspecialchars($project['technologies']); ?></h5>
                                                         </li>
+                                                        <?php if (!empty($project['live_url'])): ?>
+                                                        <li>
+                                                            <p>Live Preview</p>
+                                                            <h5><a href="<?php echo htmlspecialchars($project['live_url']); ?>" target="_blank" style="color: #fff; text-decoration: underline;">View Project <i class="iconoir-open-new-window"></i></a></h5>
+                                                        </li>
+                                                        <?php endif; ?>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -366,11 +372,7 @@ if ($nextProj && !empty($nextProj['image_path'])):
                                                 <img decoding="async" src="../<?php echo htmlspecialchars($nextProj['image_path']); ?>" alt="">
                                             </a>
                                         </div>
-<?php endif; ?>
-
-
-
-
+                                            <?php endif; ?>
                                         <script>
                                             AOS.init({
                                                 duration: 1500,
@@ -384,6 +386,7 @@ if ($nextProj && !empty($nextProj['image_path'])):
                         </div>
                     </div>
                 </section>
+
                 <section
                     class="elementor-section elementor-top-section elementor-element elementor-element-643c153 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                     data-id="643c153" data-element_type="section">
@@ -396,8 +399,7 @@ if ($nextProj && !empty($nextProj['image_path'])):
                                     data-widget_type="gridxdaworkdetailprojfooterbtn.default">
                                     <div class="elementor-widget-container">
 
-                                        <!-- Start Nextproject
-    ============================================= -->
+                                        <!-- Start Nextproject -->
 
                                         <div class="container d-flex align-items-center justify-content-center"
                                             data-aos="zoom-in">
@@ -429,40 +431,10 @@ if ($nextProj && !empty($nextProj['image_path'])):
             <!-- </div> -->
         </section>
         <!-- Footer -->
-        <footer class="footer-area">
-            <div class="container">
-                <div class="footer-content text-center">
-
-                    <a href="../index.html" class="logo">
-
-                        <img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
-
-                    </a>
-
-                    <ul data-in="#" data-out="#" class="footer-menu" id="menu-footer-menu">
-                        <li id="menu-item-1856"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1856">
-                            <a title="Home" href="../index.html">Home</a></li>
-                        <li id="menu-item-1857"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1857"><a
-                                title="About" href="../about-page/index.html">About</a></li>
-                        <li id="menu-item-1859"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1859"><a
-                                title="Works" href="../work/index.html">Works</a></li>
-                        <li id="menu-item-1858"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1858"><a
-                                title="Contact" href="../contact-info/index.html">Contact</a></li>
-                    </ul>
-                    <p class="copyright">
-                        © All rights reserved by <span>
-                            <a target="_blank"
-                                href="https://themeforest.net/user/wordpressriver/portfolio">WordPressRiver</a>
-
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </footer>
+        <?php
+            include_once '../include/path_helper.php'; 
+            include '../include/footer.php';
+        ?>  
 
     </main>
 

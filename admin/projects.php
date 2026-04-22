@@ -14,12 +14,13 @@ if (isset($_GET['delete'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title         = trim($_POST['title'] ?? '');
     $category      = trim($_POST['category'] ?? '');
-    $project_url   = trim($_POST['project_url'] ?? '');
+
     $client        = trim($_POST['client'] ?? '');
     $year          = trim($_POST['year'] ?? '');
     $services      = trim($_POST['services'] ?? '');
     $technologies  = trim($_POST['technologies'] ?? '');
     $description   = trim($_POST['description'] ?? '');
+    $live_url      = trim($_POST['live_url'] ?? '');
     $display_order = (int)($_POST['display_order'] ?? 0);
     $is_featured   = isset($_POST['is_featured']) ? 1 : 0;
     $id            = (int)($_POST['id'] ?? 0);
@@ -58,11 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($id) {
-        $pdo->prepare("UPDATE projects SET title=?, category=?, image_path=?, project_url=?, is_featured=?, display_order=?, client=?, year=?, services=?, technologies=?, description=?, image2_path=?, image3_path=?, image4_path=? WHERE id=?")
-            ->execute([$title, $category, $image_path, $project_url, $is_featured, $display_order, $client, $year, $services, $technologies, $description, $image2_path, $image3_path, $image4_path, $id]);
+        $pdo->prepare("UPDATE projects SET title=?, category=?, image_path=?, is_featured=?, display_order=?, client=?, year=?, services=?, technologies=?, description=?, image2_path=?, image3_path=?, image4_path=?, live_url=? WHERE id=?")
+            ->execute([$title, $category, $image_path, $is_featured, $display_order, $client, $year, $services, $technologies, $description, $image2_path, $image3_path, $image4_path, $live_url, $id]);
     } else {
-        $pdo->prepare("INSERT INTO projects (title, category, image_path, project_url, is_featured, display_order, client, year, services, technologies, description, image2_path, image3_path, image4_path) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
-            ->execute([$title, $category, $image_path, $project_url, $is_featured, $display_order, $client, $year, $services, $technologies, $description, $image2_path, $image3_path, $image4_path]);
+        $pdo->prepare("INSERT INTO projects (title, category, image_path, is_featured, display_order, client, year, services, technologies, description, image2_path, image3_path, image4_path, live_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+            ->execute([$title, $category, $image_path, $is_featured, $display_order, $client, $year, $services, $technologies, $description, $image2_path, $image3_path, $image4_path, $live_url]);
     }
     header("Location: projects.php?saved=1"); exit();
 }
@@ -128,13 +129,14 @@ include 'header.php';
                             <label class="form-label">Technologies (comma sep)</label>
                             <input type="text" name="technologies" class="form-control" placeholder="e.g. HTML, CSS, React" value="<?= htmlspecialchars($editing['technologies'] ?? '') ?>">
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Project URL Base</label>
-                            <input type="text" name="project_url" class="form-control" placeholder="e.g. workdetail-page/index.php" value="<?= htmlspecialchars($editing['project_url'] ?? '') ?>">
-                        </div>
+
                         <div class="col-md-12 mb-3">
                             <label class="form-label">Project Description</label>
                             <textarea name="description" class="form-control" rows="4"><?= htmlspecialchars($editing['description'] ?? '') ?></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Live Project URL (External Website)</label>
+                            <input type="text" name="live_url" class="form-control" placeholder="e.g. https://example.com" value="<?= htmlspecialchars($editing['live_url'] ?? '') ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Main Image</label>

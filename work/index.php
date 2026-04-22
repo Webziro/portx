@@ -90,7 +90,7 @@
                                         <div class="elementor-widget-container">
                                             <?php foreach (array_slice($projects, 0, 2) as $p): 
                                                 $imgSrc = htmlspecialchars('../' . $p['image_path']);
-                                                $url    = htmlspecialchars('../' . $p['project_url']);
+                                                $url    = "../workdetail-page/index.php?id=" . $p['id'];
                                             ?>
                                             <div data-aos="zoom-in">
                                                 <div class="project-item shadow-box">
@@ -157,7 +157,7 @@
                                                     $colA = array_filter($mainProjects, fn($i) => $i % 2 === 0, ARRAY_FILTER_USE_KEY);
                                                     foreach ($colA as $p):
                                                         $imgSrc = htmlspecialchars('../' . $p['image_path']);
-                                                        $url    = htmlspecialchars('../' . $p['project_url']);
+                                                        $url    = "../workdetail-page/index.php?id=" . $p['id'];
                                                     ?>
                                                     <div class="d-flex align-items-start gap-24">
                                                         <div data-aos="zoom-in" class="flex-1">
@@ -196,7 +196,7 @@
                                                     $colB = array_filter($mainProjects, fn($i) => $i % 2 !== 0, ARRAY_FILTER_USE_KEY);
                                                     foreach ($colB as $p):
                                                         $imgSrc = htmlspecialchars('../' . $p['image_path']);
-                                                        $url    = htmlspecialchars('../' . $p['project_url']);
+                                                        $url    = "../workdetail-page/index.php?id=" . $p['id'];
                                                     ?>
                                                     <div class="d-flex align-items-start gap-24">
                                                         <div data-aos="zoom-in" class="flex-1">
