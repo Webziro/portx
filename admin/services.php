@@ -13,15 +13,16 @@ if (isset($_GET['delete'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $icon_class    = trim($_POST['icon_class']);
     $label         = trim($_POST['label']);
+    $description   = trim($_POST['description'] ?? '');
     $display_order = (int)$_POST['display_order'];
     $id            = (int)($_POST['id'] ?? 0);
 
     if ($id) {
-        $pdo->prepare("UPDATE services SET icon_class=?, label=?, display_order=? WHERE id=?")
-            ->execute([$icon_class, $label, $display_order, $id]);
+        $pdo->prepare("UPDATE services SET icon_class=?, label=?, description=?, display_order=? WHERE id=?")
+            ->execute([$icon_class, $label, $description, $display_order, $id]);
     } else {
-        $pdo->prepare("INSERT INTO services (icon_class, label, display_order) VALUES (?,?,?)")
-            ->execute([$icon_class, $label, $display_order]);
+        $pdo->prepare("INSERT INTO services (icon_class, label, description, display_order) VALUES (?,?,?,?)")
+            ->execute([$icon_class, $label, $description, $display_order]);
     }
     header("Location: services.php?saved=1"); exit();
 }
@@ -63,6 +64,10 @@ include 'header.php';
                     <div class="mb-3">
                         <label class="form-label">Label</label>
                         <input type="text" name="label" class="form-control" placeholder="e.g. Web & App Dev." value="<?= htmlspecialchars($editing['label'] ?? '') ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="Brief description of this service..."><?= htmlspecialchars($editing['description'] ?? '') ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Display Order</label>

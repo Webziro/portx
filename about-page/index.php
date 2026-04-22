@@ -1,5 +1,9 @@
 <?php 
     include "../include/title.php";
+    require_once '../include/db.php';
+    $profile     = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
+    $experiences = $pdo->query("SELECT * FROM credentials WHERE type='experience' ORDER BY display_order")->fetchAll();
+    $educations  = $pdo->query("SELECT * FROM credentials WHERE type='education'  ORDER BY display_order")->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -85,10 +89,9 @@
                                                                         alt="img" class="bg-img">
                                                                     
 
-                                                                    <!-- Image fetch from dtatbase can be edited by admin -->
                                                                     <div class="image-inner">
                                                                         <img decoding="async"
-                                                                            src="../wp-content/uploads/2023/04/me2.png"
+                                                                            src="../<?php echo htmlspecialchars($profile['hero_image'] ?? 'wp-content/uploads/2023/04/me2.png'); ?>"
                                                                             alt="">
                                                                     </div>
                                                                 </div>
@@ -137,17 +140,11 @@
                                                                         src="../wp-content/themes/gridx/assets/images/icon2.png"
                                                                         alt="img" class="star-icon">
 
-                                                                    <h2>Stanley Amaziro</h2>
+                                                                    <h2><?php echo htmlspecialchars($profile['full_name'] ?? 'Stanley Amaziro'); ?></h2>
 
-                                                                    <!-- Fetch from database and admin can update it from dashboard -->
+                                                                    <!-- Fetched from database -->
 
-                                                                    <p>Hello! I'm a software engineer with a 
-                                                                        passion for creating innovative solutions that make 
-                                                                        a difference. I craft solutions that blend stunning 
-                                                                        frontend designs with robust backend engineering, 
-                                                                        creating memorable experiences through design, 
-                                                                        development, and storytelling.
-                                                                    </p>
+                                                                    <p><?php echo nl2br(htmlspecialchars($profile['bio'] ?? 'Backend and Systems Engineer passionate about scalable solutions.')); ?></p>
                                                                 </div>
 
                                                             </div>
@@ -203,22 +200,21 @@
                                                                     <h4>EXPERIENCE</h4>
 
                                                                     <ul>
+                                                                        <?php if (!empty($experiences)): ?>
+                                                                        <?php foreach ($experiences as $exp): ?>
                                                                         <li>
-                                                                            <p class="date">2026 - Present</p>
-                                                                            <h3>Software Engineer</h3>
-                                                                            <p class="type">Kyte Logistics & Technologies Limited</p>
+                                                                            <?php if (!empty($exp['date_range'])): ?>
+                                                                            <p class="date"><?php echo htmlspecialchars($exp['date_range']); ?></p>
+                                                                            <?php endif; ?>
+                                                                            <h3><?php echo htmlspecialchars($exp['title']); ?></h3>
+                                                                            <?php if (!empty($exp['organization'])): ?>
+                                                                            <p class="type"><?php echo htmlspecialchars($exp['organization']); ?></p>
+                                                                            <?php endif; ?>
                                                                         </li>
-                                                                        <li>
-                                                                            <p class="date">2024 - 2026</p>
-                                                                            <h3>Software Developer</h3>
-                                                                            <p class="type">Webon Tech Hub, Abuja</p>
-                                                                        </li>
-
-                                                                         <li>
-                                                                            <p class="date">2023 - 2024</p>
-                                                                            <h3>Web Developer</h3>
-                                                                            <p class="type">Jamasoft Concept, Abuja</p>
-                                                                        </li>
+                                                                        <?php endforeach; ?>
+                                                                        <?php else: ?>
+                                                                        <li><p class="date">—</p><h3>No entries yet</h3></li>
+                                                                        <?php endif; ?>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -255,19 +251,22 @@
                                                                     <h4>EDUCATION</h4>
 
                                                                     <ul>
-                                                                        
+                                                                        <?php if (!empty($educations)): ?>
+                                                                        <?php foreach ($educations as $edu): ?>
                                                                         <li>
-                                                                            <p class="date">2024 - 2025</p>
-                                                                            <h3>Diploma in Software Engineering</h3>
-                                                                            <p class="type">Spent Academy</p>
+                                                                            <?php if (!empty($edu['date_range'])): ?>
+                                                                            <p class="date"><?php echo htmlspecialchars($edu['date_range']); ?></p>
+                                                                            <?php endif; ?>
+                                                                            <h3><?php echo htmlspecialchars($edu['title']); ?></h3>
+                                                                            <?php if (!empty($edu['organization'])): ?>
+                                                                            <p class="type"><?php echo htmlspecialchars($edu['organization']); ?></p>
+                                                                            <?php endif; ?>
                                                                         </li>
-
-                                                                        <li>
-                                                                            <p class="date">2022 - 2022</p>
-                                                                            <h3>Diploma in Software Development</h3>
-                                                                            <p class="type">Jamasoft Academy</p>
-                                                                        </li>
-                                                                        </ul>
+                                                                        <?php endforeach; ?>
+                                                                        <?php else: ?>
+                                                                        <li><p class="date">—</p><h3>No entries yet</h3></li>
+                                                                        <?php endif; ?>
+                                                                    </ul>
 
                                                                         
                                                                          
@@ -357,7 +356,7 @@
 
                                                                 <div class="about-contact-box info-box shadow-box">
                                                                     <a class="overlay-link"
-                                                                        href="../contact-info/index.html"></a>
+                                                                        href="../contact-info/index.php"></a>
 
                                                                     <img decoding="async"
                                                                         src="../wp-content/themes/gridx/assets/images/bg1.png"

@@ -1,4 +1,7 @@
-
+<?php
+    require_once '../include/db.php';
+    $services = $pdo->query("SELECT * FROM services ORDER BY display_order")->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -209,19 +212,13 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
 <div class="service-sidebar" data-aos="fade-right">
     <div class="service-sidebar-inner shadow-box">
         <ul>
-                        <li>
-                <i class="iconoir-camera icon"></i>
-                    PHOTOGRAPHY            </li>
-                        <li>
-                <i class="iconoir-design-pencil icon"></i>
-                     WEB DESIGNING            </li>
-                        <li>
-                <i class="iconoir-color-filter icon"></i>
-                    BRANDING            </li>
-                        <li>
-                <i class="iconoir-dev-mode-phone icon"></i>
-                    DEVELOPMENT            </li>
-                    </ul>
+            <?php foreach ($services as $svc): ?>
+            <li>
+                <i class="<?php echo htmlspecialchars($svc['icon_class']); ?> icon"></i>
+                <?php echo htmlspecialchars(strtoupper($svc['label'])); ?>
+            </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
 </div>
   
@@ -259,19 +256,17 @@ My Offerings		<img decoding="async" src="../wp-content/themes/gridx/assets/image
         <div class="service-content-wrap" data-aos="zoom-in">
             <div class="service-content-inner shadow-box">
                 <div class="service-items">
-                                    <div class="service-item">
-                        <h4>Photography</h4>
-                        <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor asna rhoncus dolor purus non enim aberitin praesent in elementum sahas facilisis leo, vel fringilla est etisam dignissim.</p>                    </div>
-                                        <div class="service-item">
-                        <h4>Web Designing</h4>
-                        <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor asna rhoncus dolor purus non enim aberitin praesent in elementum sahas facilisis leo, vel fringilla est etisam dignissim.</p>                    </div>
-                                        <div class="service-item">
-                        <h4>Branding</h4>
-                        <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor asna rhoncus dolor purus non enim aberitin praesent in elementum sahas facilisis leo, vel fringilla est etisam dignissim.</p>                    </div>
-                                        <div class="service-item">
-                        <h4>Development</h4>
-                        <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor asna rhoncus dolor purus non enim aberitin praesent in elementum sahas facilisis leo, vel fringilla est etisam dignissim.</p>                    </div>
-                                    </div>
+                    <?php foreach ($services as $svc): ?>
+                    <div class="service-item">
+                        <h4><?php echo htmlspecialchars($svc['label']); ?></h4>
+                        <?php if (!empty($svc['description'])): ?>
+                        <p><?php echo htmlspecialchars($svc['description']); ?></p>
+                        <?php else: ?>
+                        <p>Professional services tailored to your needs.</p>
+                        <?php endif; ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
  

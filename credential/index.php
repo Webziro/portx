@@ -1,4 +1,10 @@
-
+<?php
+    require_once '../include/db.php';
+    $profile     = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
+    $experiences = $pdo->query("SELECT * FROM credentials WHERE type='experience' ORDER BY display_order")->fetchAll();
+    $educations  = $pdo->query("SELECT * FROM credentials WHERE type='education'  ORDER BY display_order")->fetchAll();
+    $skills      = $pdo->query("SELECT * FROM credentials WHERE type='skill'      ORDER BY display_order")->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -188,28 +194,19 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
 <img src="../wp-content/themes/gridx/assets/images/bg1.png" alt="BG" class="bg-img">
 				
                                 <div class="img-box">
-                                    <img src="../wp-content/themes/gridx/assets/images/me.png" alt="">
+                                    <img src="../<?php echo htmlspecialchars($profile['hero_image'] ?? 'wp-content/uploads/2023/04/me.png'); ?>" alt="">
                                 </div>
-                                <h3>David Henderson</h3>
-                                <p>@davidhenderson</p>
-								
-                                <ul class="social-links d-flex justify-content-center">
-									                                    <li>
-                                            <a href="#"><i class="iconoir-dribbble                                    "></i>
-                                    </a>
-                                            
-                                    </li>									                                    <li>    <a href="#"><i class="iconoir-twitter                                    "></i>
-                                    </a>
-    </li>
-																		                                    <li>    <a href="#"><i class="iconoir-instagram                                    "></i>
-                                    </a>
-    </li>
-																		                                    <li>    <a href="#"><i class="iconoir-facebook-tag                                    "></i>
-                                    </a>
-    </li>
-									                                </ul>
+                                <h3><?php echo htmlspecialchars($profile['full_name'] ?? 'Stanley Amaziro'); ?></h3>
+                                <p><?php echo htmlspecialchars($profile['title'] ?? 'Software Engineer'); ?></p>
 
-                                    <a href="../contact-info/index.html" class="theme-btn">Contact Me</a>
+                                <ul class="social-links d-flex justify-content-center">
+                                    <li><a href="#"><i class="iconoir-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="iconoir-twitter"></i></a></li>
+                                    <li><a href="#"><i class="iconoir-instagram"></i></a></li>
+                                    <li><a href="#"><i class="iconoir-facebook-tag"></i></a></li>
+                                </ul>
+
+                                    <a href="../contact-info/index.php" class="theme-btn">Contact Me</a>
             
                                 
                             </div>
@@ -231,89 +228,67 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
 <div class="credential-content flex-1">
         <div class="credential-about" data-aos="zoom-in">
             <h3>About Me</h3>
-            <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor rhoncus dolor purus non enim praesent in elementum sahas facilisis leo, vel fringilla est ullamcorper eget nulla facilisi etisam dignissim diam quis enim lobortis viverra orci sagittis eu volutpat odio facilisis mauris sit.
+            <p><?php echo nl2br(htmlspecialchars($profile['bio'] ?? '')); ?></p>
+        </div>
 
-Scelerisque fermentum duisi faucibus in ornare quam sisd sit amet luctussd fav venenatis, lectus magna fringilla zac urna, porttitor rhoncus dolor purus non enim praesent cuz elementum sahas facilisis leot.</p>        </div>
-
+        <?php if (!empty($experiences)): ?>
         <div class="credential-edc-exp credential-experience">
             <h3 data-aos="fade-up">EXPERIENCE</h3>
-                         <div class="credential-edc-exp-item" data-aos="zoom-in">
-                <h5>2007 - 2017</h5>
-                <h4>Framer Designer &amp; Develope</h4>
-                <h6>Bluebase Designs</h6>
-                <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor rhoncus dolor purus non enim praesent in elementum sahas facilisis leo, vel fringilla est ullamcorper eget nulla facilisi etisam dignissim diam quis enim lobortis viverra orci sagittis eu volutpat odio facilisis mauris sit.</p>            </div>
-                         <div class="credential-edc-exp-item" data-aos="zoom-in">
-                <h5>2017 - 2023</h5>
-                <h4>Front-End Developer</h4>
-                <h6>Larsen &amp; Toubro</h6>
-                <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor rhoncus dolor purus non enim praesent in elementum sahas facilisis leo, vel fringilla est ullamcorper eget nulla facilisi etisam dignissim diam quis enim lobortis viverra orci sagittis eu volutpat odio facilisis mauris sit.</p>            </div>
-                     </div>
+            <?php foreach ($experiences as $exp): ?>
+            <div class="credential-edc-exp-item" data-aos="zoom-in">
+                <?php if (!empty($exp['date_range'])): ?>
+                <h5><?php echo htmlspecialchars($exp['date_range']); ?></h5>
+                <?php endif; ?>
+                <h4><?php echo htmlspecialchars($exp['title']); ?></h4>
+                <?php if (!empty($exp['organization'])): ?>
+                <h6><?php echo htmlspecialchars($exp['organization']); ?></h6>
+                <?php endif; ?>
+                <?php if (!empty($exp['description'])): ?>
+                <p><?php echo htmlspecialchars($exp['description']); ?></p>
+                <?php endif; ?>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
 
+        <?php if (!empty($educations)): ?>
         <div class="credential-edc-exp credential-education">
             <h3 data-aos="fade-up">Education</h3>
-                            <div class="credential-edc-exp-item" data-aos="zoom-in">
-                <h5>2004 - 2007</h5>
-                <h4>Bachelor Degree in Psychology</h4>
-                <h6>University of California</h6>
-                <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor rhoncus dolor purus non enim praesent in elementum sahas facilisis leo, vel fringilla est ullamcorper eget nulla facilisi etisam dignissim diam quis enim lobortis viverra orci sagittis eu volutpat odio facilisis mauris sit.</p>            </div>
-                        <div class="credential-edc-exp-item" data-aos="zoom-in">
-                <h5>2007 - 2009</h5>
-                <h4>Master Degree in Designing</h4>
-                <h6>University of Texas</h6>
-                <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis urna, porttitor rhoncus dolor purus non enim praesent in elementum sahas facilisis leo, vel fringilla est ullamcorper eget nulla facilisi etisam dignissim diam quis enim lobortis viverra orci sagittis eu volutpat odio facilisis mauris sit.</p>            </div>
-                    </div>
+            <?php foreach ($educations as $edu): ?>
+            <div class="credential-edc-exp-item" data-aos="zoom-in">
+                <?php if (!empty($edu['date_range'])): ?>
+                <h5><?php echo htmlspecialchars($edu['date_range']); ?></h5>
+                <?php endif; ?>
+                <h4><?php echo htmlspecialchars($edu['title']); ?></h4>
+                <?php if (!empty($edu['organization'])): ?>
+                <h6><?php echo htmlspecialchars($edu['organization']); ?></h6>
+                <?php endif; ?>
+                <?php if (!empty($edu['description'])): ?>
+                <p><?php echo htmlspecialchars($edu['description']); ?></p>
+                <?php endif; ?>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
 
+        <?php if (!empty($skills)): ?>
         <div class="skills-wrap">
             <h3 data-aos="fade-up">Skills</h3>
             <div class="d-grid skill-items gap-24 flex-wrap">
-                                <div class="skill-item" data-aos="zoom-in">
-                    <span class="percent">85%</span>
-                    <h4 class="name">JavaScript</h4>
-                    <p>Non enim praesent</p>
+                <?php foreach ($skills as $sk): ?>
+                <div class="skill-item" data-aos="zoom-in">
+                    <?php if (!empty($sk['subtitle'])): ?>
+                    <span class="percent"><?php echo htmlspecialchars($sk['subtitle']); ?></span>
+                    <?php endif; ?>
+                    <h4 class="name"><?php echo htmlspecialchars($sk['title']); ?></h4>
+                    <?php if (!empty($sk['description'])): ?>
+                    <p><?php echo htmlspecialchars($sk['description']); ?></p>
+                    <?php endif; ?>
                 </div>
-                             <div class="skill-item" data-aos="zoom-in">
-                    <span class="percent">78%</span>
-                    <h4 class="name">Python</h4>
-                    <p>Non enim praesent</p>
-                </div>
-                             <div class="skill-item" data-aos="zoom-in">
-                    <span class="percent">92%</span>
-                    <h4 class="name">Figma</h4>
-                    <p>Non enim praesent</p>
-                </div>
-                             <div class="skill-item" data-aos="zoom-in">
-                    <span class="percent">90%</span>
-                    <h4 class="name">WordPress</h4>
-                    <p>Non enim praesent</p>
-                </div>
-                             <div class="skill-item" data-aos="zoom-in">
-                    <span class="percent">81%</span>
-                    <h4 class="name">React</h4>
-                    <p>Non enim praesent</p>
-                </div>
-                             <div class="skill-item" data-aos="zoom-in">
-                    <span class="percent">87%</span>
-                    <h4 class="name">Adobe XD</h4>
-                    <p>Non enim praesent</p>
-                </div>
-                         </div>
+                <?php endforeach; ?>
+            </div>
         </div>
-
-        <div class="skills-wrap awards-wrap">
-            <h3 data-aos="fade-up">Awards</h3>
-            <div class="d-grid skill-items gap-24 flex-wrap">
-                                <div class="skill-item" data-aos="zoom-in">
-                    <span class="percent">14 May 2020</span>
-                    <h4 class="name">Bluebase</h4>
-                    <p>Non enim praesent</p>
-                </div>
-                               <div class="skill-item" data-aos="zoom-in">
-                    <span class="percent">26 June 2018</span>
-                    <h4 class="name">Demble</h4>
-                    <p>Non enim praesent</p>
-                </div>
-                           </div>
-        </div>
+        <?php endif; ?>
     </div>
 
 

@@ -13,6 +13,9 @@ if (isset($_GET['delete'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title         = trim($_POST['title']);
     $subtitle      = trim($_POST['subtitle']);
+    $date_range    = trim($_POST['date_range'] ?? '');
+    $organization  = trim($_POST['organization'] ?? '');
+    $description   = trim($_POST['description'] ?? '');
     $type          = trim($_POST['type']);
     $display_order = (int)$_POST['display_order'];
     $id            = (int)($_POST['id'] ?? 0);
@@ -28,11 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($id) {
-        $pdo->prepare("UPDATE credentials SET title=?, subtitle=?, image_path=?, type=?, display_order=? WHERE id=?")
-            ->execute([$title, $subtitle, $image_path, $type, $display_order, $id]);
+        $pdo->prepare("UPDATE credentials SET title=?, subtitle=?, date_range=?, organization=?, description=?, image_path=?, type=?, display_order=? WHERE id=?")
+            ->execute([$title, $subtitle, $date_range, $organization, $description, $image_path, $type, $display_order, $id]);
     } else {
-        $pdo->prepare("INSERT INTO credentials (title, subtitle, image_path, type, display_order) VALUES (?,?,?,?,?)")
-            ->execute([$title, $subtitle, $image_path, $type, $display_order]);
+        $pdo->prepare("INSERT INTO credentials (title, subtitle, date_range, organization, description, image_path, type, display_order) VALUES (?,?,?,?,?,?,?,?)")
+            ->execute([$title, $subtitle, $date_range, $organization, $description, $image_path, $type, $display_order]);
     }
     header("Location: credentials.php?saved=1"); exit();
 }
@@ -68,20 +71,32 @@ include 'header.php';
                         <input type="hidden" name="existing_image" value="<?= htmlspecialchars($editing['image_path'] ?? '') ?>">
                     <?php endif; ?>
                     <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input type="text" name="title" class="form-control" placeholder="e.g. BSc. Computer Science" value="<?= htmlspecialchars($editing['title'] ?? '') ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Subtitle / Details</label>
-                        <input type="text" name="subtitle" class="form-control" placeholder="e.g. University of Lagos, 2020" value="<?= htmlspecialchars($editing['subtitle'] ?? '') ?>">
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label">Type</label>
                         <select name="type" class="form-select">
                             <option value="education"   <?= (($editing['type'] ?? '') == 'education')   ? 'selected' : '' ?>>Education</option>
                             <option value="experience"  <?= (($editing['type'] ?? '') == 'experience')  ? 'selected' : '' ?>>Experience</option>
                             <option value="skill"       <?= (($editing['type'] ?? '') == 'skill')       ? 'selected' : '' ?>>Skill</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Title <small class="text-muted">(Role / Degree / Skill name)</small></label>
+                        <input type="text" name="title" class="form-control" placeholder="e.g. BSc. Computer Science" value="<?= htmlspecialchars($editing['title'] ?? '') ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date Range <small class="text-muted">(Experience/Education)</small></label>
+                        <input type="text" name="date_range" class="form-control" placeholder="e.g. 2019 - 2023" value="<?= htmlspecialchars($editing['date_range'] ?? '') ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Organization <small class="text-muted">(Company / University)</small></label>
+                        <input type="text" name="organization" class="form-control" placeholder="e.g. University of Lagos" value="<?= htmlspecialchars($editing['organization'] ?? '') ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Subtitle / Percent <small class="text-muted">(Skills: e.g. 85%)</small></label>
+                        <input type="text" name="subtitle" class="form-control" placeholder="e.g. 85%" value="<?= htmlspecialchars($editing['subtitle'] ?? '') ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="Brief description..."><?= htmlspecialchars($editing['description'] ?? '') ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Image (optional)</label>
@@ -108,7 +123,7 @@ include 'header.php';
             <div class="card-header bg-transparent"><h5 class="mb-0">All Credentials</h5></div>
             <div class="card-body p-0">
                 <table class="table table-hover mb-0 align-middle">
-                    <thead><tr><th>Image</th><th>Title</th><th>Subtitle</th><th>Type</th><th>Actions</th></tr></thead>
+                    <thead><tr><th>Image</th><th>Title</th><th>Date / Percent</th><th>Organization</th><th>Type</th><th>Actions</th></tr></thead>
                     <tbody>
                     <?php foreach ($credentials as $c): ?>
                         <tr>
@@ -120,7 +135,8 @@ include 'header.php';
                                 <?php endif; ?>
                             </td>
                             <td><?= htmlspecialchars($c['title']) ?></td>
-                            <td><small class="text-muted"><?= htmlspecialchars($c['subtitle']) ?></small></td>
+                            <td><small class="text-muted"><?= htmlspecialchars($c['date_range'] ?: $c['subtitle']) ?></small></td>
+                            <td><small class="text-muted"><?= htmlspecialchars($c['organization'] ?? '') ?></small></td>
                             <td>
                                 <?php
                                 $badge = ['education'=>'info','experience'=>'primary','skill'=>'success'];
