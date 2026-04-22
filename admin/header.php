@@ -23,6 +23,7 @@ $pageTitle = $pageTitles[basename($_SERVER['PHP_SELF'])] ?? 'Dashboard';
     <!-- Use local bootstrap from portfolio if possible, but admin might need its own for theme support -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lucide-icons/lucide-static@latest/font/lucide.css">
+    
     <style>
         :root {
             --gx-bg-dark: #0f0f0f;

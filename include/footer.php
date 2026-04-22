@@ -22,6 +22,9 @@
                         <li id="menu-item-1859"
                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1859"><a
                                 title="Works" href="<?= asset_url('work/index.php') ?>">Projects</a></li>
+                        <li id="menu-item-blog"
+                            class="menu-item menu-item-type-post_type menu-item-object-page"><a
+                                title="Blog" href="<?= asset_url('blog/index.php') ?>">Blog</a></li>
                         <li id="menu-item-1858"
                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1858"><a
                                 title="Contact" href="<?= asset_url('contact-info/index.php') ?>">Contact</a></li>

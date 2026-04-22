@@ -6,6 +6,8 @@
     <title><?php echo $title; ?></title>
     <meta name='robots' content='max-image-preview:large' />
 
+    <link rel="icon" type="image/png" href="/web/portfolio/wp-content/themes/gridx/assets/images/stanley.png">
+
     <style>
         img:is([sizes="auto" i], [sizes^="auto," i]) {
             contain-intrinsic-size: 3000px 1500px

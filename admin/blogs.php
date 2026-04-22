@@ -13,6 +13,11 @@ if (isset($_GET['delete'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title         = trim($_POST['title']);
     $blog_url      = trim($_POST['blog_url']);
+    $content       = $_POST['content'] ?? ''; // From TinyMCE
+    $excerpt       = trim($_POST['excerpt'] ?? '');
+    $author_name   = trim($_POST['author_name'] ?? '');
+    $category      = trim($_POST['category'] ?? '');
+    $tags          = trim($_POST['tags'] ?? '');
     $display_order = (int)$_POST['display_order'];
     $id            = (int)($_POST['id'] ?? 0);
 
@@ -27,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($id) {
-        $pdo->prepare("UPDATE blogs SET title=?, image_path=?, blog_url=?, display_order=? WHERE id=?")
-            ->execute([$title, $image_path, $blog_url, $display_order, $id]);
+        $pdo->prepare("UPDATE blogs SET title=?, image_path=?, blog_url=?, content=?, excerpt=?, author_name=?, category=?, tags=?, display_order=? WHERE id=?")
+            ->execute([$title, $image_path, $blog_url, $content, $excerpt, $author_name, $category, $tags, $display_order, $id]);
     } else {
-        $pdo->prepare("INSERT INTO blogs (title, image_path, blog_url, display_order) VALUES (?,?,?,?)")
-            ->execute([$title, $image_path, $blog_url, $display_order]);
+        $pdo->prepare("INSERT INTO blogs (title, image_path, blog_url, content, excerpt, author_name, category, tags, display_order) VALUES (?,?,?,?,?,?,?,?,?)")
+            ->execute([$title, $image_path, $blog_url, $content, $excerpt, $author_name, $category, $tags, $display_order]);
     }
     header("Location: blogs.php?saved=1"); exit();
 }
@@ -47,6 +52,15 @@ if (isset($_GET['edit'])) {
 
 include 'header.php';
 ?>
+<!-- TinyMCE CDN -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '#blog-content',
+    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+  });
+</script>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Blogs</h2>
@@ -71,8 +85,30 @@ include 'header.php';
                         <input type="text" name="title" class="form-control" placeholder="e.g. My Thoughts on DevOps" value="<?= htmlspecialchars($editing['title'] ?? '') ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Blog URL / Link</label>
-                        <input type="text" name="blog_url" class="form-control" placeholder="e.g. consulted-admitting-is-power-acuteness/index.php" value="<?= htmlspecialchars($editing['blog_url'] ?? '') ?>">
+                        <label class="form-label">Excerpt / Short Intro</label>
+                        <textarea name="excerpt" class="form-control" rows="2" placeholder="Brief summary for listing page..."><?= htmlspecialchars($editing['excerpt'] ?? '') ?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Blog Content (Body)</label>
+                        <textarea name="content" id="blog-content" class="form-control" rows="10"><?= htmlspecialchars($editing['content'] ?? '') ?></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Category</label>
+                            <input type="text" name="category" class="form-control" placeholder="e.g. Technology" value="<?= htmlspecialchars($editing['category'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tags (comma sep)</label>
+                            <input type="text" name="tags" class="form-control" placeholder="e.g. devops, php" value="<?= htmlspecialchars($editing['tags'] ?? '') ?>">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Author Name</label>
+                        <input type="text" name="author_name" class="form-control" value="<?= htmlspecialchars($editing['author_name'] ?? ($profile['full_name'] ?? '')) ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Reference ID (e.g. slug for auto-link)</label>
+                        <input type="text" name="blog_url" class="form-control" placeholder="e.g. my-first-post" value="<?= htmlspecialchars($editing['blog_url'] ?? '') ?>">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Blog Cover Image</label>

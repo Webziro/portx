@@ -296,7 +296,7 @@
                                             <!-- Start Blog Box -->
                                             <!-- Blog dynamically from database -->
                                             <?php
-                                            $blogUrl   = $latestBlog ? htmlspecialchars($latestBlog['blog_url'])   : 'consulted-admitting-is-power-acuteness/index.php';
+                                            $blogUrl   = $latestBlog ? 'blog/detail.php?id=' . $latestBlog['id']   : 'blog/index.php';
                                             $blogImg   = $latestBlog ? htmlspecialchars($latestBlog['image_path']) : 'wp-content/uploads/2023/04/gfonts.png';
                                             $blogTitle = $latestBlog ? htmlspecialchars($latestBlog['title'])      : 'BLOG';
                                             ?>

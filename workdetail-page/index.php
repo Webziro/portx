@@ -341,53 +341,6 @@
                     </div>
                 </section>
                 <section
-                    class="elementor-section elementor-top-section elementor-element elementor-element-6be08a8 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-                    data-id="6be08a8" data-element_type="section">
-                    <div class="elementor-container elementor-column-gap-no">
-                        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b1bea42"
-                            data-id="b1bea42" data-element_type="column">
-                            <div class="elementor-widget-wrap elementor-element-populated">
-                                <div class="elementor-element elementor-element-f24f593 elementor-widget elementor-widget-gridxdaworkdetailprojfooterimg"
-                                    data-id="f24f593" data-element_type="widget"
-                                    data-widget_type="gridxdaworkdetailprojfooterimg.default">
-                                    <div class="elementor-widget-container">
-
-                                        <!-- Start Nextproject
-    ============================================= -->
-
-                                        
-<?php 
-// Next project fetch
-$nextStmt = $pdo->prepare("SELECT id, image_path FROM projects WHERE id < ? ORDER BY id DESC LIMIT 1");
-$nextStmt->execute([$id]);
-$nextProj = $nextStmt->fetch(PDO::FETCH_ASSOC);
-if (!$nextProj) { // Wrap around
-    $nextStmt = $pdo->query("SELECT id, image_path FROM projects ORDER BY id DESC LIMIT 1");
-    $nextProj = $nextStmt->fetch(PDO::FETCH_ASSOC);
-}
-if ($nextProj && !empty($nextProj['image_path'])): 
-?>
-                                        <div class="project-details-img" data-aos="zoom-in">
-                                            <a href="index.php?id=<?php echo $nextProj['id']; ?>">
-                                                <img decoding="async" src="../<?php echo htmlspecialchars($nextProj['image_path']); ?>" alt="">
-                                            </a>
-                                        </div>
-                                            <?php endif; ?>
-                                        <script>
-                                            AOS.init({
-                                                duration: 1500,
-                                                once: true,
-
-                                            });</script>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section
                     class="elementor-section elementor-top-section elementor-element elementor-element-643c153 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                     data-id="643c153" data-element_type="section">
                     <div class="elementor-container elementor-column-gap-no">
@@ -400,6 +353,17 @@ if ($nextProj && !empty($nextProj['image_path'])):
                                     <div class="elementor-widget-container">
 
                                         <!-- Start Nextproject -->
+                                        
+                                        <?php 
+                                        // Next project fetch (moved to top of sequence)
+                                        $nextStmt = $pdo->prepare("SELECT id, image_path FROM projects WHERE id < ? ORDER BY id DESC LIMIT 1");
+                                        $nextStmt->execute([$id]);
+                                        $nextProj = $nextStmt->fetch(PDO::FETCH_ASSOC);
+                                        if (!$nextProj) { // Wrap around
+                                            $nextStmt = $pdo->query("SELECT id, image_path FROM projects ORDER BY id DESC LIMIT 1");
+                                            $nextProj = $nextStmt->fetch(PDO::FETCH_ASSOC);
+                                        }
+                                        ?>
 
                                         <div class="container d-flex align-items-center justify-content-center"
                                             data-aos="zoom-in">
@@ -417,6 +381,42 @@ if ($nextProj && !empty($nextProj['image_path'])):
                                                 once: true,
 
                                             });</script>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section
+                    class="elementor-section elementor-top-section elementor-element elementor-element-6be08a8 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+                    data-id="6be08a8" data-element_type="section">
+                    <div class="elementor-container elementor-column-gap-no">
+                        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b1bea42"
+                            data-id="b1bea42" data-element_type="column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-element-f24f593 elementor-widget elementor-widget-gridxdaworkdetailprojfooterimg"
+                                    data-id="f24f593" data-element_type="widget"
+                                    data-widget_type="gridxdaworkdetailprojfooterimg.default">
+                                    <div class="elementor-widget-container">
+
+                                        <!-- Start Nextproject image section -->
+
+                                        
+<?php if ($nextProj && !empty($nextProj['image_path'])): ?>
+                                        <div class="project-details-img" data-aos="zoom-in">
+                                            <a href="index.php?id=<?php echo $nextProj['id']; ?>">
+                                                <img decoding="async" src="../<?php echo htmlspecialchars($nextProj['image_path']); ?>" alt="">
+                                            </a>
+                                        </div>
+<?php endif; ?>
+                                            <script>
+                                                AOS.init({
+                                                    duration: 1500,
+                                                    once: true,
+
+                                                });</script>
 
                                     </div>
                                 </div>

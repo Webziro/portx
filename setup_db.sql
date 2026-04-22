@@ -57,8 +57,24 @@ CREATE TABLE IF NOT EXISTS blogs (
     title VARCHAR(255),
     image_path VARCHAR(255),
     blog_url VARCHAR(255),
+    content LONGTEXT,
+    excerpt TEXT,
+    author_name VARCHAR(100),
+    category VARCHAR(100),
+    tags VARCHAR(255),
     display_order INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Blog comments table
+CREATE TABLE IF NOT EXISTS blog_comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    blog_id INT,
+    author_name VARCHAR(100),
+    author_email VARCHAR(100),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (blog_id) REFERENCES blogs(id) ON DELETE CASCADE
 );
 
 -- Credentials table
