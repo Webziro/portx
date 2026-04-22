@@ -6,6 +6,7 @@
     $profile  = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
     $services = $pdo->query("SELECT * FROM services ORDER BY display_order")->fetchAll();
     $latestBlog = $pdo->query("SELECT * FROM blogs ORDER BY display_order, created_at DESC LIMIT 1")->fetch();
+    $latestProjects = $pdo->query("SELECT title FROM projects ORDER BY id DESC LIMIT 3")->fetchAll(PDO::FETCH_COLUMN);
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -137,10 +138,16 @@
                                                     <div class="banner shadow-box">
                                                         <div class="marquee">
                                                             <div style="animation: marquee 8s linear infinite;">
-                                                                <span>LATEST WORK AND <b>FEATURED</b><img
-                                                                        decoding="async"
-                                                                        src="wp-content/uploads/2023/04/star1.svg"
-                                                                        alt=""></span>
+                                                                <?php if (!empty($latestProjects)): ?>
+                                                                    <span>
+                                                                        <?php foreach ($latestProjects as $projectTitle): ?>
+                                                                            <b><?php echo htmlspecialchars(strtoupper($projectTitle)); ?></b>
+                                                                            <img decoding="async" src="wp-content/uploads/2023/04/star1.svg" alt="">
+                                                                        <?php endforeach; ?>
+                                                                    </span>
+                                                                <?php else: ?>
+                                                                    <span>LATEST WORK AND <b>FEATURED</b><img decoding="async" src="wp-content/uploads/2023/04/star1.svg" alt=""></span>
+                                                                <?php endif; ?>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -12,7 +12,7 @@ $nav_prefix = file_exists('include/navigation.php') ? '' : '../';
                 title="About" href="<?php echo $nav_prefix; ?>about-page/index.php">About</a></li>
         <li id="menu-item-1853"
             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1853"><a
-                title="Works" href="<?php echo $nav_prefix; ?>work/index.php">Works</a></li>
+                title="Works" href="<?php echo $nav_prefix; ?>work/index.php">Projects</a></li>
         <li id="menu-item-1852"
             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1852"><a
                 title="Contact" href="<?php echo $nav_prefix; ?>contact-info/index.php">Contact</a></li>
