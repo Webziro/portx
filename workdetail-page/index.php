@@ -1,7 +1,22 @@
 <?php 
     include "../include/title.php";
     require_once '../include/db.php';
-?> 
+    
+    $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+    if (!$id) {
+        header("Location: ../work/index.php");
+        exit;
+    }
+
+    $stmt = $pdo->prepare("SELECT * FROM projects WHERE id = ?");
+    $stmt->execute([$id]);
+    $project = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$project) {
+        header("Location: ../work/index.php");
+        exit;
+    }
+?>  
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -82,14 +97,14 @@
                                         <section class="breadcrumb-area">
                                             <div class="container">
                                                 <div class="breadcrumb-content" data-aos="fade-up">
-                                                    <p>BRANDING - RAVEN STUDIO</p>
+                                                    <p><?php echo htmlspecialchars(strtoupper($project['category'])); ?></p>
                                                     <h1 class="section-heading">
 
                                                         <img decoding="async"
                                                             src="../wp-content/themes/gridx/assets/images/star-2.png"
                                                             alt="img">
 
-                                                        Aesthetic design for brand <br>new startup
+                                                        <?php echo htmlspecialchars($project['title']); ?>
                                                         <img decoding="async"
                                                             src="../wp-content/themes/gridx/assets/images/star-2.png"
                                                             alt="img">
@@ -100,8 +115,7 @@
                                         </section>
 
                                         <div class="project-details-img" data-aos="zoom-in">
-                                            <img decoding="async" src="../wp-content/uploads/2023/04/project-dt-1.html"
-                                                alt="">
+                                            <img decoding="async" src="../<?php echo htmlspecialchars($project['image_path']); ?>" alt="">
                                         </div>
 
                                         <script>
@@ -146,28 +160,8 @@
 
 
                                                 <div class="project-details-info flex-1">
-                                                    <h4>Raven studio</h4>
-                                                    <p>Sit amet luctussd fav venenatis, lectus magna fringilla inis
-                                                        urna, porttitor rhoncus dolor purus non enim praesent in
-                                                        elementum sahas facilisis leo, vel fringilla est ullamcorper
-                                                        eget nulla facilisi etisam dignissim diam quis enim lobortis
-                                                        viverra orci sagittis eu volutpat odio facilisis mauris sit.</p>
-                                                    <p>Scelerisque fermentum duisi faucibus in ornare quam sisd sit amet
-                                                        luctussd fav venenatis, lectus magna fringilla zac urna,
-                                                        porttitor rhoncus dolor purus non enim praesent cuz elementum
-                                                        sahas facilisis leot.</p>
-                                                </div>
-
-                                                <div class="project-details-info flex-1">
-                                                    <h4>About</h4>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-                                                        aliquam, purus sit amet luctus venenatis, lectus magna ve
-                                                        fringilla urna, porttitor rhoncus dolor purus nonds enim isi
-                                                        praesent elementum facilisis leo.</p>
-                                                    <p>Vel fringilla est ullamcorper eget nulla facilisi etiama ashfa
-                                                        dignissim diam quis enim lobortis scelerisque fermentum dui
-                                                        faucibus in ornare quam viverra orci sagittis eu agv he volutpat
-                                                        odio asas facilisis mauris sit.</p>
+                                                    <h4><?php echo htmlspecialchars($project['title']); ?></h4>
+                                                    <p><?php echo nl2br(htmlspecialchars($project['description'])); ?></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -201,10 +195,11 @@
                                         <!-- Start WorkDetail
     ============================================= -->
 
+                                        <?php if (!empty($project['image2_path'])): ?>
                                         <div class="project-details-2-img mb-24" data-aos="zoom-in">
-                                            <img decoding="async" src="../wp-content/uploads/2023/04/project-dt-1.html"
-                                                alt="">
+                                            <img decoding="async" src="../<?php echo htmlspecialchars($project['image2_path']); ?>" alt="">
                                         </div>
+                                        <?php endif; ?>
 
 
 
@@ -239,22 +234,20 @@
 
 
                                         <div class="row mb-24">
+                                            <?php if (!empty($project['image3_path'])): ?>
                                             <div class="col-md-6" data-aos="zoom-in">
-
                                                 <div class="project-details-3-img">
-                                                    <img decoding="async"
-                                                        src="../wp-content/uploads/2023/04/project3-1.html" alt="">
+                                                    <img decoding="async" src="../<?php echo htmlspecialchars($project['image3_path']); ?>" alt="">
                                                 </div>
-
                                             </div>
+                                            <?php endif; ?>
+                                            <?php if (!empty($project['image4_path'])): ?>
                                             <div class="col-md-6" data-aos="zoom-in">
-
                                                 <div class="project-details-3-img">
-                                                    <img decoding="async"
-                                                        src="../wp-content/uploads/2023/04/project2.jpg" alt="">
+                                                    <img decoding="async" src="../<?php echo htmlspecialchars($project['image4_path']); ?>" alt="">
                                                 </div>
-
                                             </div>
+                                            <?php endif; ?>
                                         </div>
 
 
@@ -273,58 +266,7 @@
                         </div>
                     </div>
                 </section>
-                <section
-                    class="elementor-section elementor-top-section elementor-element elementor-element-05c9290 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-                    data-id="05c9290" data-element_type="section">
-                    <div class="elementor-container elementor-column-gap-no">
-                        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-75841af"
-                            data-id="75841af" data-element_type="column">
-                            <div class="elementor-widget-wrap elementor-element-populated">
-                                <div class="elementor-element elementor-element-6668302 elementor-widget elementor-widget-gridxdaworkdetailimg"
-                                    data-id="6668302" data-element_type="widget"
-                                    data-widget_type="gridxdaworkdetailimg.default">
-                                    <div class="elementor-widget-container">
-
-                                        <!-- Start WorkDetail
-    ============================================= -->
-
-
-
-                                        <div class="row mb-24">
-                                            <div class="col-md-6" data-aos="zoom-in">
-
-                                                <div class="project-details-3-img">
-                                                    <img decoding="async"
-                                                        src="../wp-content/uploads/2023/04/project5.jpg" alt="">
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6" data-aos="zoom-in">
-
-                                                <div class="project-details-3-img">
-                                                    <img decoding="async"
-                                                        src="../wp-content/uploads/2023/04/project6.jpg" alt="">
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-
-
-
-                                        <script>
-                                            AOS.init({
-                                                duration: 1500,
-                                                once: true,
-
-                                            });</script>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                
                 <section
                     class="elementor-section elementor-top-section elementor-element elementor-element-513e7c2 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                     data-id="513e7c2" data-element_type="section">
@@ -359,37 +301,21 @@
                                                     <ul>
                                                         <li>
                                                             <p>Year</p>
-                                                            <h5>2023</h5>
+                                                            <h5><?php echo htmlspecialchars($project['year']); ?></h5>
                                                         </li>
                                                         <li>
                                                             <p>Client</p>
-                                                            <h5>Raven Studio</h5>
+                                                            <h5><?php echo htmlspecialchars($project['client']); ?></h5>
                                                         </li>
                                                         <li>
                                                             <p>Services</p>
-                                                            <h5>Web Design</h5>
+                                                            <h5><?php echo htmlspecialchars($project['services']); ?></h5>
                                                         </li>
                                                         <li>
-                                                            <p>Project</p>
-                                                            <h5>Dynamic</h5>
+                                                            <p>Technologies</p>
+                                                            <h5><?php echo htmlspecialchars($project['technologies']); ?></h5>
                                                         </li>
                                                     </ul>
-                                                </div>
-                                                <div class="right-details">
-                                                    <h4>Description</h4>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit utsadi
-                                                        sfejdis aliquam, purus sit amet luctus venenatis, lectus magna
-                                                        sansit trandis fringilla urna, porttitor rhoncus dolor purus non
-                                                        enim dollors praesent tabasi elementum facilisis leo, vel
-                                                        fringilla est ullamcorper eget nulla facilisi etiam facilisis
-                                                        dignissim diam quis enim lobortis scelerisque.</p>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit utsadi
-                                                        sfejdis aliquam, purus sit amet luctus venenatis, lectus magna
-                                                        sansit trandis fringilla urna, porttitor rhoncus dolor purus non
-                                                        enim dollors praesent tabasi elementum facilisis leo, vel
-                                                        fringilla est ullamcorper eget nulla facilisi etiam facilisis
-                                                        dignissim diam quis enim lobortis scelerisque iin fermentumisa
-                                                        dui faucibus in ornare.Lorem ipsum dolor sit.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -424,10 +350,25 @@
                                         <!-- Start Nextproject
     ============================================= -->
 
+                                        
+<?php 
+// Next project fetch
+$nextStmt = $pdo->prepare("SELECT id, image_path FROM projects WHERE id < ? ORDER BY id DESC LIMIT 1");
+$nextStmt->execute([$id]);
+$nextProj = $nextStmt->fetch(PDO::FETCH_ASSOC);
+if (!$nextProj) { // Wrap around
+    $nextStmt = $pdo->query("SELECT id, image_path FROM projects ORDER BY id DESC LIMIT 1");
+    $nextProj = $nextStmt->fetch(PDO::FETCH_ASSOC);
+}
+if ($nextProj && !empty($nextProj['image_path'])): 
+?>
                                         <div class="project-details-img" data-aos="zoom-in">
-                                            <img decoding="async" src="../wp-content/uploads/2023/04/project-dt-1.html"
-                                                alt="">
+                                            <a href="index.php?id=<?php echo $nextProj['id']; ?>">
+                                                <img decoding="async" src="../<?php echo htmlspecialchars($nextProj['image_path']); ?>" alt="">
+                                            </a>
                                         </div>
+<?php endif; ?>
+
 
 
 
@@ -461,8 +402,11 @@
 
                                         <div class="container d-flex align-items-center justify-content-center"
                                             data-aos="zoom-in">
-                                            <a href="#" class="big-btn shadow-box">
-                                                Next Project </a>
+                                            <?php if ($nextProj): ?>
+                                            <a href="index.php?id=<?php echo $nextProj['id']; ?>" class="big-btn shadow-box">
+                                                Next Project 
+                                            </a>
+                                            <?php endif; ?>
                                         </div>
 
 

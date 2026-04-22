@@ -12,10 +12,15 @@ if (isset($_GET['delete'])) {
 
 // Add / Edit
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title         = trim($_POST['title']);
-    $category      = trim($_POST['category']);
-    $project_url   = trim($_POST['project_url']);
-    $display_order = (int)$_POST['display_order'];
+    $title         = trim($_POST['title'] ?? '');
+    $category      = trim($_POST['category'] ?? '');
+    $project_url   = trim($_POST['project_url'] ?? '');
+    $client        = trim($_POST['client'] ?? '');
+    $year          = trim($_POST['year'] ?? '');
+    $services      = trim($_POST['services'] ?? '');
+    $technologies  = trim($_POST['technologies'] ?? '');
+    $description   = trim($_POST['description'] ?? '');
+    $display_order = (int)($_POST['display_order'] ?? 0);
     $is_featured   = isset($_POST['is_featured']) ? 1 : 0;
     $id            = (int)($_POST['id'] ?? 0);
 
@@ -23,18 +28,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_FILES['image_path']['name'])) {
         $ext = pathinfo($_FILES['image_path']['name'], PATHINFO_EXTENSION);
         $new_name = 'project_' . time() . '.' . $ext;
-        $dest = '../wp-content/uploads/' . $new_name;
-        if (move_uploaded_file($_FILES['image_path']['tmp_name'], $dest)) {
+        if (move_uploaded_file($_FILES['image_path']['tmp_name'], '../wp-content/uploads/' . $new_name)) {
             $image_path = 'wp-content/uploads/' . $new_name;
+        }
+    }
+    $image2_path = trim($_POST['existing_image2'] ?? '');
+    if (!empty($_FILES['image2_path']['name'])) {
+        $ext = pathinfo($_FILES['image2_path']['name'], PATHINFO_EXTENSION);
+        $new_name = 'project_img2_' . time() . '.' . $ext;
+        if (move_uploaded_file($_FILES['image2_path']['tmp_name'], '../wp-content/uploads/' . $new_name)) {
+            $image2_path = 'wp-content/uploads/' . $new_name;
+        }
+    }
+    $image3_path = trim($_POST['existing_image3'] ?? '');
+    if (!empty($_FILES['image3_path']['name'])) {
+        $ext = pathinfo($_FILES['image3_path']['name'], PATHINFO_EXTENSION);
+        $new_name = 'project_img3_' . time() . '.' . $ext;
+        if (move_uploaded_file($_FILES['image3_path']['tmp_name'], '../wp-content/uploads/' . $new_name)) {
+            $image3_path = 'wp-content/uploads/' . $new_name;
+        }
+    }
+    $image4_path = trim($_POST['existing_image4'] ?? '');
+    if (!empty($_FILES['image4_path']['name'])) {
+        $ext = pathinfo($_FILES['image4_path']['name'], PATHINFO_EXTENSION);
+        $new_name = 'project_img4_' . time() . '.' . $ext;
+        if (move_uploaded_file($_FILES['image4_path']['tmp_name'], '../wp-content/uploads/' . $new_name)) {
+            $image4_path = 'wp-content/uploads/' . $new_name;
         }
     }
 
     if ($id) {
-        $pdo->prepare("UPDATE projects SET title=?, category=?, image_path=?, project_url=?, is_featured=?, display_order=? WHERE id=?")
-            ->execute([$title, $category, $image_path, $project_url, $is_featured, $display_order, $id]);
+        $pdo->prepare("UPDATE projects SET title=?, category=?, image_path=?, project_url=?, is_featured=?, display_order=?, client=?, year=?, services=?, technologies=?, description=?, image2_path=?, image3_path=?, image4_path=? WHERE id=?")
+            ->execute([$title, $category, $image_path, $project_url, $is_featured, $display_order, $client, $year, $services, $technologies, $description, $image2_path, $image3_path, $image4_path, $id]);
     } else {
-        $pdo->prepare("INSERT INTO projects (title, category, image_path, project_url, is_featured, display_order) VALUES (?,?,?,?,?,?)")
-            ->execute([$title, $category, $image_path, $project_url, $is_featured, $display_order]);
+        $pdo->prepare("INSERT INTO projects (title, category, image_path, project_url, is_featured, display_order, client, year, services, technologies, description, image2_path, image3_path, image4_path) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+            ->execute([$title, $category, $image_path, $project_url, $is_featured, $display_order, $client, $year, $services, $technologies, $description, $image2_path, $image3_path, $image4_path]);
     }
     header("Location: projects.php?saved=1"); exit();
 }
@@ -61,7 +89,7 @@ include 'header.php';
 
 <div class="row g-4">
     <!-- Add/Edit Form -->
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header bg-transparent">
                 <h5 class="mb-0"><?= $editing ? 'Edit Project' : 'Add Project' ?></h5>
@@ -71,27 +99,71 @@ include 'header.php';
                     <?php if ($editing): ?>
                         <input type="hidden" name="id" value="<?= $editing['id'] ?>">
                         <input type="hidden" name="existing_image" value="<?= htmlspecialchars($editing['image_path'] ?? '') ?>">
+                        <input type="hidden" name="existing_image2" value="<?= htmlspecialchars($editing['image2_path'] ?? '') ?>">
+                        <input type="hidden" name="existing_image3" value="<?= htmlspecialchars($editing['image3_path'] ?? '') ?>">
+                        <input type="hidden" name="existing_image4" value="<?= htmlspecialchars($editing['image4_path'] ?? '') ?>">
                     <?php endif; ?>
-                    <div class="mb-3">
-                        <label class="form-label">Project Title</label>
-                        <input type="text" name="title" class="form-control" placeholder="e.g. Dynamic" value="<?= htmlspecialchars($editing['title'] ?? '') ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Category</label>
-                        <input type="text" name="category" class="form-control" placeholder="e.g. WEB DESIGNING" value="<?= htmlspecialchars($editing['category'] ?? '') ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Project URL</label>
-                        <input type="text" name="project_url" class="form-control" placeholder="e.g. workdetail-page/index.php" value="<?= htmlspecialchars($editing['project_url'] ?? '') ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Project Image</label>
-                        <?php if (!empty($editing['image_path'])): ?>
-                            <div class="mb-1">
-                                <img src="../<?= htmlspecialchars($editing['image_path']) ?>" style="height:60px;border-radius:6px;object-fit:cover;" alt="">
-                            </div>
-                        <?php endif; ?>
-                        <input type="file" name="image_path" class="form-control" accept="image/*">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Project Title</label>
+                            <input type="text" name="title" class="form-control" placeholder="e.g. Dynamic" value="<?= htmlspecialchars($editing['title'] ?? '') ?>" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Category</label>
+                            <input type="text" name="category" class="form-control" placeholder="e.g. WEB DESIGNING" value="<?= htmlspecialchars($editing['category'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Client</label>
+                            <input type="text" name="client" class="form-control" placeholder="e.g. Raven Studio" value="<?= htmlspecialchars($editing['client'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Year</label>
+                            <input type="text" name="year" class="form-control" placeholder="e.g. 2023" value="<?= htmlspecialchars($editing['year'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Services</label>
+                            <input type="text" name="services" class="form-control" placeholder="e.g. Web Design" value="<?= htmlspecialchars($editing['services'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Technologies (comma sep)</label>
+                            <input type="text" name="technologies" class="form-control" placeholder="e.g. HTML, CSS, React" value="<?= htmlspecialchars($editing['technologies'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Project URL Base</label>
+                            <input type="text" name="project_url" class="form-control" placeholder="e.g. workdetail-page/index.php" value="<?= htmlspecialchars($editing['project_url'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Project Description</label>
+                            <textarea name="description" class="form-control" rows="4"><?= htmlspecialchars($editing['description'] ?? '') ?></textarea>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Main Image</label>
+                            <?php if (!empty($editing['image_path'])): ?>
+                                <div class="mb-1"><img src="../<?= htmlspecialchars($editing['image_path']) ?>" style="height:60px;border-radius:6px;object-fit:cover;" alt=""></div>
+                            <?php endif; ?>
+                            <input type="file" name="image_path" class="form-control" accept="image/*">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Detail Image 1</label>
+                            <?php if (!empty($editing['image2_path'])): ?>
+                                <div class="mb-1"><img src="../<?= htmlspecialchars($editing['image2_path']) ?>" style="height:60px;border-radius:6px;object-fit:cover;" alt=""></div>
+                            <?php endif; ?>
+                            <input type="file" name="image2_path" class="form-control" accept="image/*">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Detail Image 2</label>
+                            <?php if (!empty($editing['image3_path'])): ?>
+                                <div class="mb-1"><img src="../<?= htmlspecialchars($editing['image3_path']) ?>" style="height:60px;border-radius:6px;object-fit:cover;" alt=""></div>
+                            <?php endif; ?>
+                            <input type="file" name="image3_path" class="form-control" accept="image/*">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Detail Image 3</label>
+                            <?php if (!empty($editing['image4_path'])): ?>
+                                <div class="mb-1"><img src="../<?= htmlspecialchars($editing['image4_path']) ?>" style="height:60px;border-radius:6px;object-fit:cover;" alt=""></div>
+                            <?php endif; ?>
+                            <input type="file" name="image4_path" class="form-control" accept="image/*">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-3">
@@ -115,7 +187,7 @@ include 'header.php';
     </div>
 
     <!-- List -->
-    <div class="col-md-8">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header bg-transparent"><h5 class="mb-0">All Projects</h5></div>
             <div class="card-body p-0">
