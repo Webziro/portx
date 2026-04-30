@@ -27,7 +27,7 @@ top_block = """<?php
 content = re.sub(r'<\?php.*?require_once \'../include/db.php\';\s*\?>', top_block, content, flags=re.DOTALL)
 
 # 2. Breadcrumb & Main Image
-breadcrumb_pattern = r'<p>BRANDING - RAVEN STUDIO</p>.*?<img decoding="async"\s*src="\.\./wp-content/uploads/2023/04/project-dt-1\.html"\s*alt="">'
+breadcrumb_pattern = r'<p>BRANDING - RAVEN STUDIO</p>.*?<img decoding="async"\s*src="\.\./wp-content/uploads/2023/04/project-dt-1\.php "\s*alt="">'
 breadcrumb_replacement = """<p><?php echo htmlspecialchars(strtoupper($project['category'])); ?></p>
                                                     <h1 class="section-heading">
 
@@ -57,7 +57,7 @@ info_replacement = """<h4><?php echo htmlspecialchars($project['title']); ?></h4
 content = re.sub(info_pattern, info_replacement, content, flags=re.DOTALL)
 
 # 4. Detail Image 1
-img2_pattern = r'<div class="project-details-2-img mb-24" data-aos="zoom-in">\s*<img decoding="async" src="\.\./wp-content/uploads/2023/04/project-dt-1\.html"\s*alt="">\s*</div>'
+img2_pattern = r'<div class="project-details-2-img mb-24" data-aos="zoom-in">\s*<img decoding="async" src="\.\./wp-content/uploads/2023/04/project-dt-1\.php "\s*alt="">\s*</div>'
 img2_replacement = """<?php if (!empty($project['image2_path'])): ?>
                                         <div class="project-details-2-img mb-24" data-aos="zoom-in">
                                             <img decoding="async" src="../<?php echo htmlspecialchars($project['image2_path']); ?>" alt="">
@@ -66,7 +66,7 @@ img2_replacement = """<?php if (!empty($project['image2_path'])): ?>
 content = re.sub(img2_pattern, img2_replacement, content, flags=re.DOTALL)
 
 # 5. Detail Image 2 and 3 
-img34_pattern = r'<div class="row mb-24">\s*<div class="col-md-6" data-aos="zoom-in">\s*<div class="project-details-3-img">\s*<img decoding="async"\s*src="\.\./wp-content/uploads/2023/04/project3-1\.html" alt="">\s*</div>\s*</div>\s*<div class="col-md-6" data-aos="zoom-in">\s*<div class="project-details-3-img">\s*<img decoding="async"\s*src="\.\./wp-content/uploads/2023/04/project2\.jpg" alt="">\s*</div>\s*</div>\s*</div>'
+img34_pattern = r'<div class="row mb-24">\s*<div class="col-md-6" data-aos="zoom-in">\s*<div class="project-details-3-img">\s*<img decoding="async"\s*src="\.\./wp-content/uploads/2023/04/project3-1\.php " alt="">\s*</div>\s*</div>\s*<div class="col-md-6" data-aos="zoom-in">\s*<div class="project-details-3-img">\s*<img decoding="async"\s*src="\.\./wp-content/uploads/2023/04/project2\.jpg" alt="">\s*</div>\s*</div>\s*</div>'
 img34_replacement = """<div class="row mb-24">
                                             <?php if (!empty($project['image3_path'])): ?>
                                             <div class="col-md-6" data-aos="zoom-in">
@@ -114,7 +114,7 @@ about_replacement = """<ul>
 content = re.sub(about_pattern, about_replacement, content, flags=re.DOTALL)
 
 # 7. Next Project Image 
-next_proj_pattern = r'<div class="project-details-img" data-aos="zoom-in">\s*<img decoding="async" src="\.\./wp-content/uploads/2023/04/project-dt-1\.html"\s*alt="">\s*</div>'
+next_proj_pattern = r'<div class="project-details-img" data-aos="zoom-in">\s*<img decoding="async" src="\.\./wp-content/uploads/2023/04/project-dt-1\.php "\s*alt="">\s*</div>'
 next_proj_replacement = """
 <?php 
 // Next project fetch

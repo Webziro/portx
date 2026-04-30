@@ -1,9 +1,9 @@
-<?php 
-    include "../include/title.php";
-    require_once "../include/db.php";
+<?php
+include "../include/title.php";
+require_once "../include/db.php";
 
-    // Fetch all projects from DB, ordered by display_order
-    $projects = $pdo->query("SELECT * FROM projects ORDER BY display_order, created_at DESC")->fetchAll();
+// Fetch all projects from DB, ordered by display_order
+$projects = $pdo->query("SELECT * FROM projects ORDER BY display_order, created_at DESC")->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -12,9 +12,9 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <!-- Head tag starts -->
-    <?php 
-        include "../include/head.php";
-    ?> 
+<?php
+include "../include/head.php";
+?>
 <!-- Head tag end -->
 
 <body
@@ -33,14 +33,16 @@
                 <div class="gx-row d-flex align-items-center justify-content-between">
 
                     <a href="../" class="logo">
-                        <img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
+                        <img src="../wp-content/uploads/logo.png" alt="Logo">
                     </a>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <?php 
-                        include "../include/navigation.php";
+                    <?php
+                    include "../include/navigation.php";
                     ?>
-                    <a href="../contact-info/index.php" class="theme-btn">Let s talk</a>
+                    <!-- Dynamic cv link -->
+                    <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
+                        target="_blank">Download CV</a>
 
                     <!-- End Navigation -->
 
@@ -88,32 +90,33 @@
                                         data-id="ec9f060" data-element_type="widget"
                                         data-widget_type="gridxdaworksidebarbox.default">
                                         <div class="elementor-widget-container">
-                                            <?php foreach (array_slice($projects, 0, 2) as $p): 
+                                            <?php foreach (array_slice($projects, 0, 2) as $p):
                                                 $imgSrc = htmlspecialchars('../' . $p['image_path']);
-                                                $url    = "../workdetail-page/index.php?id=" . $p['id'];
-                                            ?>
-                                            <div data-aos="zoom-in">
-                                                <div class="project-item shadow-box">
-                                                    <a class="overlay-link" href="<?= $url ?>"></a>
-                                                    <img decoding="async"
-                                                        src="../wp-content/themes/gridx/assets/images/bg1.png" alt="img"
-                                                        class="bg-img">
-                                                    <div class="project-img">
-                                                        <img decoding="async" class="proj-img" src="<?= $imgSrc ?>" alt="">
-                                                    </div>
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <div class="project-info">
-                                                            <p><?= htmlspecialchars($p['category']) ?></p>
-                                                            <h2><?= htmlspecialchars($p['title']) ?></h2>
+                                                $url = "../workdetail-page?id=" . $p['id'];
+                                                ?>
+                                                <div data-aos="zoom-in">
+                                                    <div class="project-item shadow-box">
+                                                        <a class="overlay-link" href="<?= $url ?>"></a>
+                                                        <img decoding="async"
+                                                            src="../wp-content/themes/gridx/assets/images/bg1.png" alt="img"
+                                                            class="bg-img">
+                                                        <div class="project-img">
+                                                            <img decoding="async" class="proj-img" src="<?= $imgSrc ?>"
+                                                                alt="">
                                                         </div>
-                                                        <a href="<?= $url ?>" class="project-btn">
-                                                            <img decoding="async"
-                                                                src="../wp-content/themes/gridx/assets/images/icon.svg"
-                                                                alt="img">
-                                                        </a>
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="project-info">
+                                                                <p><?= htmlspecialchars($p['category']) ?></p>
+                                                                <h2><?= htmlspecialchars($p['title']) ?></h2>
+                                                            </div>
+                                                            <a href="<?= $url ?>" class="project-btn">
+                                                                <img decoding="async"
+                                                                    src="../wp-content/themes/gridx/assets/images/icon.svg"
+                                                                    alt="img">
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             <?php endforeach; ?>
                                             <script>AOS.init({ duration: 1500, once: true });</script>
                                         </div>
@@ -157,33 +160,35 @@
                                                     $colA = array_filter($mainProjects, fn($i) => $i % 2 === 0, ARRAY_FILTER_USE_KEY);
                                                     foreach ($colA as $p):
                                                         $imgSrc = htmlspecialchars('../' . $p['image_path']);
-                                                        $url    = "../workdetail-page/index.php?id=" . $p['id'];
-                                                    ?>
-                                                    <div class="d-flex align-items-start gap-24">
-                                                        <div data-aos="zoom-in" class="flex-1">
-                                                            <div class="project-item shadow-box">
-                                                                <a class="overlay-link" href="<?= $url ?>"></a>
-                                                                <img decoding="async"
-                                                                    src="../wp-content/themes/gridx/assets/images/bg1.png"
-                                                                    alt="img" class="bg-img">
-                                                                <div class="project-img">
-                                                                    <img decoding="async" class="proj-img" src="<?= $imgSrc ?>" alt="">
-                                                                </div>
-                                                                <div class="d-flex align-items-center justify-content-between">
-                                                                    <div class="project-info">
-                                                                        <p><?= htmlspecialchars($p['category']) ?></p>
-                                                                        <h2><?= htmlspecialchars($p['title']) ?></h2>
+                                                        $url = "../workdetail-page/index.php?id=" . $p['id'];
+                                                        ?>
+                                                        <div class="d-flex align-items-start gap-24">
+                                                            <div data-aos="zoom-in" class="flex-1">
+                                                                <div class="project-item shadow-box">
+                                                                    <a class="overlay-link" href="<?= $url ?>"></a>
+                                                                    <img decoding="async"
+                                                                        src="../wp-content/themes/gridx/assets/images/bg1.png"
+                                                                        alt="img" class="bg-img">
+                                                                    <div class="project-img">
+                                                                        <img decoding="async" class="proj-img"
+                                                                            src="<?= $imgSrc ?>" alt="">
                                                                     </div>
-                                                                    <a href="<?= $url ?>" class="project-btn">
-                                                                        <img decoding="async"
-                                                                            src="../wp-content/themes/gridx/assets/images/icon.svg"
-                                                                            alt="img">
-                                                                    </a>
+                                                                    <div
+                                                                        class="d-flex align-items-center justify-content-between">
+                                                                        <div class="project-info">
+                                                                            <p><?= htmlspecialchars($p['category']) ?></p>
+                                                                            <h2><?= htmlspecialchars($p['title']) ?></h2>
+                                                                        </div>
+                                                                        <a href="<?= $url ?>" class="project-btn">
+                                                                            <img decoding="async"
+                                                                                src="../wp-content/themes/gridx/assets/images/icon.svg"
+                                                                                alt="img">
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <script>AOS.init({ duration: 1500, once: true });</script>
+                                                        <script>AOS.init({ duration: 1500, once: true });</script>
                                                     <?php endforeach; ?>
                                                 </div>
                                             </div>
@@ -196,33 +201,35 @@
                                                     $colB = array_filter($mainProjects, fn($i) => $i % 2 !== 0, ARRAY_FILTER_USE_KEY);
                                                     foreach ($colB as $p):
                                                         $imgSrc = htmlspecialchars('../' . $p['image_path']);
-                                                        $url    = "../workdetail-page/index.php?id=" . $p['id'];
-                                                    ?>
-                                                    <div class="d-flex align-items-start gap-24">
-                                                        <div data-aos="zoom-in" class="flex-1">
-                                                            <div class="project-item shadow-box">
-                                                                <a class="overlay-link" href="<?= $url ?>"></a>
-                                                                <img decoding="async"
-                                                                    src="../wp-content/themes/gridx/assets/images/bg1.png"
-                                                                    alt="img" class="bg-img">
-                                                                <div class="project-img">
-                                                                    <img decoding="async" class="proj-img" src="<?= $imgSrc ?>" alt="">
-                                                                </div>
-                                                                <div class="d-flex align-items-center justify-content-between">
-                                                                    <div class="project-info">
-                                                                        <p><?= htmlspecialchars($p['category']) ?></p>
-                                                                        <h2><?= htmlspecialchars($p['title']) ?></h2>
+                                                        $url = "../workdetail-page/index.php?id=" . $p['id'];
+                                                        ?>
+                                                        <div class="d-flex align-items-start gap-24">
+                                                            <div data-aos="zoom-in" class="flex-1">
+                                                                <div class="project-item shadow-box">
+                                                                    <a class="overlay-link" href="<?= $url ?>"></a>
+                                                                    <img decoding="async"
+                                                                        src="../wp-content/themes/gridx/assets/images/bg1.png"
+                                                                        alt="img" class="bg-img">
+                                                                    <div class="project-img">
+                                                                        <img decoding="async" class="proj-img"
+                                                                            src="<?= $imgSrc ?>" alt="">
                                                                     </div>
-                                                                    <a href="<?= $url ?>" class="project-btn">
-                                                                        <img decoding="async"
-                                                                            src="../wp-content/themes/gridx/assets/images/icon.svg"
-                                                                            alt="img">
-                                                                    </a>
+                                                                    <div
+                                                                        class="d-flex align-items-center justify-content-between">
+                                                                        <div class="project-info">
+                                                                            <p><?= htmlspecialchars($p['category']) ?></p>
+                                                                            <h2><?= htmlspecialchars($p['title']) ?></h2>
+                                                                        </div>
+                                                                        <a href="<?= $url ?>" class="project-btn">
+                                                                            <img decoding="async"
+                                                                                src="../wp-content/themes/gridx/assets/images/icon.svg"
+                                                                                alt="img">
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <script>AOS.init({ duration: 1500, once: true });</script>
+                                                        <script>AOS.init({ duration: 1500, once: true });</script>
                                                     <?php endforeach; ?>
                                                 </div>
                                             </div>
@@ -239,13 +246,13 @@
         </section>
 
         <!-- Footer -->
-        <?php 
-            include "../include/footer.php";
+        <?php
+        include "../include/footer.php";
         ?>
 
     </main>
 
-<script type="speculationrules">
+    <script type="speculationrules">
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/gridx\/*"},{"not":{"href_matches":["\/gridx\/wp-*.php","\/gridx\/wp-admin\/*","\/gridx\/wp-content\/uploads\/*","\/gridx\/wp-content\/*","\/gridx\/wp-content\/plugins\/*","\/gridx\/wp-content\/themes\/gridx\/*","\/gridx\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
 </script>
     <script>
@@ -294,7 +301,7 @@
     <script src="../wp-content/themes/gridx/assets/js/bootstrap.bundle.min32d4.js?ver=6.8.3" id="bootstrap-js"></script>
     <script src="../wp-content/themes/gridx/assets/js/aos32d4.js?ver=6.8.3" id="aos-js"></script>
     <script src="../wp-content/themes/gridx/assets/js/main32d4.js?ver=6.8.3" id="gridx-main-js"></script>
-    <script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.html?ver=6.8.3" id="ajax-form-js"></script>
+    <script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.php ?ver=6.8.3" id="ajax-form-js"></script>
     <script src="../wp-content/plugins/elementor/assets/js/webpack.runtime.min242d.js?ver=3.31.2"
         id="elementor-webpack-runtime-js"></script>
     <script src="../wp-content/plugins/elementor/assets/js/frontend-modules.min242d.js?ver=3.31.2"

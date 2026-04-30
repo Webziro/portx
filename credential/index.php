@@ -1,26 +1,33 @@
 <?php
-    require_once '../include/db.php';
-    $profile     = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
-    $experiences = $pdo->query("SELECT * FROM credentials WHERE type='experience' ORDER BY display_order")->fetchAll();
-    $educations  = $pdo->query("SELECT * FROM credentials WHERE type='education'  ORDER BY display_order")->fetchAll();
-    $skills      = $pdo->query("SELECT * FROM credentials WHERE type='skill'      ORDER BY display_order")->fetchAll();
+require_once '../include/db.php';
+$profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
+$experiences = $pdo->query("SELECT * FROM credentials WHERE type='experience' ORDER BY display_order")->fetchAll();
+$educations = $pdo->query("SELECT * FROM credentials WHERE type='education'  ORDER BY display_order")->fetchAll();
+$skills = $pdo->query("SELECT * FROM credentials WHERE type='skill'      ORDER BY display_order")->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
 
 <!-- Mirrored from wpriverthemes.com/gridx/credential/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Feb 2026 10:18:54 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CREDENTIAL PAGE &#8211; Gridx &#8211; WordPress Theme</title>
-<meta name='robots' content='max-image-preview:large' />
-	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
-	<link rel='dns-prefetch' href='http://fonts.googleapis.com/' />
-<link rel='preconnect' href='https://fonts.gstatic.com/' crossorigin />
-<link rel="alternate" type="application/rss+xml" title="Gridx - WordPress Theme &raquo; Feed" href="../feed/index.html" />
-<link rel="alternate" type="application/rss+xml" title="Gridx - WordPress Theme &raquo; Comments Feed" href="../comments/feed/index.html" />
+    <meta name='robots' content='max-image-preview:large' />
+    <style>
+        img:is([sizes="auto" i], [sizes^="auto," i]) {
+            contain-intrinsic-size: 3000px 1500px
+        }
+    </style>
+    <link rel='dns-prefetch' href='http://fonts.googleapis.com/' />
+    <link rel='preconnect' href='https://fonts.gstatic.com/' crossorigin />
+    <link rel="alternate" type="application/rss+xml" title="Gridx - WordPress Theme &raquo; Feed"
+        href="../feed/index.php " />
+<link rel="alternate" type="application/rss+xml" title="Gridx - WordPress Theme &raquo; Comments Feed" href="../comments/feed/index.php " />
 <script>
 window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/wpriverthemes.com\/gridx\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.3"}};
 /*! This file is auto-generated */
@@ -28,17 +35,17 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
 </script>
 <style id='wp-emoji-styles-inline-css'>
 
-	img.wp-smiley, img.emoji {
-		display: inline !important;
-		border: none !important;
-		box-shadow: none !important;
-		height: 1em !important;
-		width: 1em !important;
-		margin: 0 0.07em !important;
-		vertical-align: -0.1em !important;
-		background: none !important;
-		padding: 0 !important;
-	}
+    img.wp-smiley, img.emoji {
+        display: inline !important;
+        border: none !important;
+        box-shadow: none !important;
+        height: 1em !important;
+        width: 1em !important;
+        margin: 0 0.07em !important;
+        vertical-align: -0.1em !important;
+        background: none !important;
+        padding: 0 !important;
+    }
 </style>
 <style id='classic-theme-styles-inline-css'>
 /*! This file is auto-generated */
@@ -69,14 +76,14 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
 <link rel='stylesheet' id='elementor-gf-local-robotoslab-css' href='../wp-content/uploads/elementor/google-fonts/css/robotoslab6055.css?ver=1750335144' media='all' />
 <script src="../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
 <script src="../wp-includes/js/jquery/jquery-migrate.min5589.js?ver=3.4.1" id="jquery-migrate-js"></script>
-<link rel="https://api.w.org/" href="../wp-json/index.html" /><link rel="alternate" title="JSON" type="application/json" href="../wp-json/wp/v2/pages/1065.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc0db0.php?rsd" />
+<link rel="https://api.w.org/" href="../wp-json/index.php " /><link rel="alternate" title="JSON" type="application/json" href="../wp-json/wp/v2/pages/1065.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc0db0.php?rsd" />
 <meta name="generator" content="WordPress 6.8.3" />
-<link rel="canonical" href="index.html" />
-<link rel='shortlink' href='../index6421.html?p=1065' />
+<link rel="canonical" href="index.php " />
+<link rel='shortlink' href='../index6421.php ?p=1065' />
 <link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="../wp-json/oembed/1.0/embed3175.json?url=https%3A%2F%2Fwpriverthemes.com%2Fgridx%2Fcredential%2F" />
 <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="../wp-json/oembed/1.0/embed30bc?url=https%3A%2F%2Fwpriverthemes.com%2Fgridx%2Fcredential%2F&amp;format=xml" />
 <meta name="generator" content="Redux 4.5.7" />	<style>
-		:root {
+        :root {
   --default-color: #5B78F6;
 }
 
@@ -89,53 +96,53 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
 }
 
 
- 	</style>
+     </style>
 
 <meta name="generator" content="Elementor 3.31.2; features: additional_custom_breakpoints, e_element_cache; settings: css_print_method-external, google_font-enabled, font_display-swap">
-			<style>
-				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
-				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
-					background-image: none !important;
-				}
-				@media screen and (max-height: 1024px) {
-					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
-					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
-						background-image: none !important;
-					}
-				}
-				@media screen and (max-height: 640px) {
-					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
-					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
-						background-image: none !important;
-					}
-				}
-			</style>
-					<style id="wp-custom-css">
-			.contact-details,
+            <style>
+                .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+                .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+                    background-image: none !important;
+                }
+                @media screen and (max-height: 1024px) {
+                    .e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+                    .e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+                        background-image: none !important;
+                    }
+                }
+                @media screen and (max-height: 640px) {
+                    .e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+                    .e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+                        background-image: none !important;
+                    }
+                }
+            </style>
+                    <style id="wp-custom-css">
+            .contact-details,
 .social-links{
-	padding-left:0 !important;
+    padding-left:0 !important;
 }
 
 .contact-area .input-group p{
-	width:100%
+    width:100%
 }
 .contact-area .contact-form form .input-group + .input-group{
-	margin-top:-3px;
+    margin-top:-3px;
 }
 /* .h1-100{
-	height:100% !important;
+    height:100% !important;
 } */
 .service-area .elementor-widget-container{
-	height:100%
+    height:100%
 }
 .service-area .info-box.about-contact-box {
-	padding-bottom:58px
+    padding-bottom:58px
 }
 .margin-0, .margin-0 .elementor-widget-wrap {
-	margin: 0 !important;
+    margin: 0 !important;
 }
-		</style>
-		<style id="gridx_options-dynamic-css" title="dynamic-css" class="redux-options-output">.header-area .navbar .menu li a{font-family:Inter;font-weight:normal;font-style:normal;}.header-area .navbar .menu li.active a, .header-area .navbar .menu li a:hover{font-family:Inter;font-weight:normal;font-style:normal;}.footer-area .footer-content .footer-menu li a{font-family:Inter;font-weight:normal;font-style:normal;}.footer-area .footer-content .footer-menu li a:hover{font-family:Inter;font-weight:normal;font-style:normal;}</style></head>
+        </style>
+        <style id="gridx_options-dynamic-css" title="dynamic-css" class="redux-options-output">.header-area .navbar .menu li a{font-family:Inter;font-weight:normal;font-style:normal;}.header-area .navbar .menu li.active a, .header-area .navbar .menu li a:hover{font-family:Inter;font-weight:normal;font-style:normal;}.footer-area .footer-content .footer-menu li a{font-family:Inter;font-weight:normal;font-style:normal;}.footer-area .footer-content .footer-menu li a:hover{font-family:Inter;font-weight:normal;font-style:normal;}</style></head>
 
 <body class="wp-singular page-template page-template-page-templates page-template-main-credential page-template-page-templatesmain-credential-php page page-id-1065 wp-theme-gridx elementor-default elementor-kit-16 elementor-page elementor-page-1065">
 
@@ -143,7 +150,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
     <div class="black_wall"></div>
     <div class="loader"></div>
 </div>
-	
+    
  <main class="main-aboutpage">
 
 <!-- Header -->
@@ -151,25 +158,21 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
     <div class="container">
         <div class="gx-row d-flex align-items-center justify-content-between">
             
-             
-
-            <a href="../index.html" class="logo">
-				
-
-
-<img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
-
-
+            <a href="../" class="logo">
+                <img src="../wp-content/uploads/logo.png" alt="Logo">
             </a>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
 
-            <nav class="navbar"><ul data-in="#" data-out="#" class="menu" id="menu-main-menu"><li id="menu-item-1850" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1850"><a   title="Home" href="../index.html">Home</a></li>
-<li id="menu-item-1851" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1851"><a   title="About" href="../about-page/index.html">About</a></li>
-<li id="menu-item-1853" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1853"><a   title="Works" href="../work/index.html">Works</a></li>
-<li id="menu-item-1852" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1852"><a   title="Contact" href="../contact-info/index.html">Contact</a></li>
-</ul></nav>
-                                                        <a href="../contact-info/index.html" class="theme-btn">Let s talk</a>
+            <nav class="navbar"><ul data-in="#" data-out="#" class="menu" id="menu-main-menu"><li id="menu-item-1850" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1850"><a   title="Home" href="../">Home</a></li>
+<li id="menu-item-1851" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1851"><a   title="About" href="../about-page">About</a></li>
+<li id="menu-item-1853" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1853"><a   title="Works" href="../work">Works</a></li>
+<li id="menu-item-1852" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1852"><a   title="Contact" href="../contact-info">Contact</a></li>
+</ul>
+</nav>
+     <!-- Dynamic CV -->
+    <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
+        target="_blank">Download CV</a>
                                     
             <!-- End Navigation -->
 
@@ -190,9 +193,9 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
                     <div class="credential-sidebar-wrap" data-aos="zoom-in">
                         <div class="credential-sidebar text-center">
                             <div class="shadow-box">
-				
+                
 <img src="../wp-content/themes/gridx/assets/images/bg1.png" alt="BG" class="bg-img">
-				
+                
                                 <div class="img-box">
                                     <img src="../<?php echo htmlspecialchars($profile['hero_image'] ?? 'wp-content/uploads/2023/04/me.png'); ?>" alt="">
                                 </div>
@@ -206,22 +209,23 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
                                     <li><a href="#"><i class="iconoir-facebook-tag"></i></a></li>
                                 </ul>
 
-                                    <a href="../contact-info/index.php" class="theme-btn">Contact Me</a>
-            
+                                <!-- Dynamic cv link -->
+                                    <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" 
+                                    class="theme-btn" target="_blank">Download my CV</a>
                                 
                             </div>
                         </div>
                     </div>
 
                     
- 		<div data-elementor-type="wp-page" data-elementor-id="1065" class="elementor elementor-1065">
-						<section class="elementor-section elementor-top-section elementor-element elementor-element-6d57135 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="6d57135" data-element_type="section">
-						<div class="elementor-container elementor-column-gap-no">
-					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2705f96 margin-0" data-id="2705f96" data-element_type="column">
-			<div class="elementor-widget-wrap elementor-element-populated">
-						<div class="elementor-element elementor-element-35461e7 elementor-widget elementor-widget-gridxdacredentialcontentbox" data-id="35461e7" data-element_type="widget" data-widget_type="gridxdacredentialcontentbox.default">
-				<div class="elementor-widget-container">
-					
+         <div data-elementor-type="wp-page" data-elementor-id="1065" class="elementor elementor-1065">
+                        <section class="elementor-section elementor-top-section elementor-element elementor-element-6d57135 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="6d57135" data-element_type="section">
+                        <div class="elementor-container elementor-column-gap-no">
+                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2705f96 margin-0" data-id="2705f96" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-35461e7 elementor-widget elementor-widget-gridxdacredentialcontentbox" data-id="35461e7" data-element_type="widget" data-widget_type="gridxdacredentialcontentbox.default">
+                <div class="elementor-widget-container">
+                    
          <!-- Start Credentials Content Box
     ============================================= -->
 
@@ -229,65 +233,68 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
         <div class="credential-about" data-aos="zoom-in">
             <h3>About Me</h3>
             <p><?php echo nl2br(htmlspecialchars($profile['bio'] ?? '')); ?></p>
+            <!-- Download my CV -->
+            <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" 
+            class="theme-btn" target="_blank">Download my CV</a>
         </div>
 
         <?php if (!empty($experiences)): ?>
-        <div class="credential-edc-exp credential-experience">
-            <h3 data-aos="fade-up">EXPERIENCE</h3>
-            <?php foreach ($experiences as $exp): ?>
-            <div class="credential-edc-exp-item" data-aos="zoom-in">
-                <?php if (!empty($exp['date_range'])): ?>
-                <h5><?php echo htmlspecialchars($exp['date_range']); ?></h5>
-                <?php endif; ?>
-                <h4><?php echo htmlspecialchars($exp['title']); ?></h4>
-                <?php if (!empty($exp['organization'])): ?>
-                <h6><?php echo htmlspecialchars($exp['organization']); ?></h6>
-                <?php endif; ?>
-                <?php if (!empty($exp['description'])): ?>
-                <p><?php echo htmlspecialchars($exp['description']); ?></p>
-                <?php endif; ?>
+            <div class="credential-edc-exp credential-experience">
+                <h3 data-aos="fade-up">EXPERIENCE</h3>
+                <?php foreach ($experiences as $exp): ?>
+                    <div class="credential-edc-exp-item" data-aos="zoom-in">
+                        <?php if (!empty($exp['date_range'])): ?>
+                            <h5><?php echo htmlspecialchars($exp['date_range']); ?></h5>
+                        <?php endif; ?>
+                        <h4><?php echo htmlspecialchars($exp['title']); ?></h4>
+                        <?php if (!empty($exp['organization'])): ?>
+                            <h6><?php echo htmlspecialchars($exp['organization']); ?></h6>
+                        <?php endif; ?>
+                        <?php if (!empty($exp['description'])): ?>
+                            <p><?php echo htmlspecialchars($exp['description']); ?></p>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
-        </div>
         <?php endif; ?>
 
         <?php if (!empty($educations)): ?>
-        <div class="credential-edc-exp credential-education">
-            <h3 data-aos="fade-up">Education</h3>
-            <?php foreach ($educations as $edu): ?>
-            <div class="credential-edc-exp-item" data-aos="zoom-in">
-                <?php if (!empty($edu['date_range'])): ?>
-                <h5><?php echo htmlspecialchars($edu['date_range']); ?></h5>
-                <?php endif; ?>
-                <h4><?php echo htmlspecialchars($edu['title']); ?></h4>
-                <?php if (!empty($edu['organization'])): ?>
-                <h6><?php echo htmlspecialchars($edu['organization']); ?></h6>
-                <?php endif; ?>
-                <?php if (!empty($edu['description'])): ?>
-                <p><?php echo htmlspecialchars($edu['description']); ?></p>
-                <?php endif; ?>
+            <div class="credential-edc-exp credential-education">
+                <h3 data-aos="fade-up">Education</h3>
+                <?php foreach ($educations as $edu): ?>
+                    <div class="credential-edc-exp-item" data-aos="zoom-in">
+                        <?php if (!empty($edu['date_range'])): ?>
+                            <h5><?php echo htmlspecialchars($edu['date_range']); ?></h5>
+                        <?php endif; ?>
+                        <h4><?php echo htmlspecialchars($edu['title']); ?></h4>
+                        <?php if (!empty($edu['organization'])): ?>
+                            <h6><?php echo htmlspecialchars($edu['organization']); ?></h6>
+                        <?php endif; ?>
+                        <?php if (!empty($edu['description'])): ?>
+                            <p><?php echo htmlspecialchars($edu['description']); ?></p>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
-        </div>
         <?php endif; ?>
 
         <?php if (!empty($skills)): ?>
-        <div class="skills-wrap">
-            <h3 data-aos="fade-up">Skills</h3>
-            <div class="d-grid skill-items gap-24 flex-wrap">
-                <?php foreach ($skills as $sk): ?>
-                <div class="skill-item" data-aos="zoom-in">
-                    <?php if (!empty($sk['subtitle'])): ?>
-                    <span class="percent"><?php echo htmlspecialchars($sk['subtitle']); ?></span>
-                    <?php endif; ?>
-                    <h4 class="name"><?php echo htmlspecialchars($sk['title']); ?></h4>
-                    <?php if (!empty($sk['description'])): ?>
-                    <p><?php echo htmlspecialchars($sk['description']); ?></p>
-                    <?php endif; ?>
+            <div class="skills-wrap">
+                <h3 data-aos="fade-up">Skills</h3>
+                <div class="d-grid skill-items gap-24 flex-wrap">
+                    <?php foreach ($skills as $sk): ?>
+                        <div class="skill-item" data-aos="zoom-in">
+                            <?php if (!empty($sk['subtitle'])): ?>
+                                <span class="percent"><?php echo htmlspecialchars($sk['subtitle']); ?></span>
+                            <?php endif; ?>
+                            <h4 class="name"><?php echo htmlspecialchars($sk['title']); ?></h4>
+                            <?php if (!empty($sk['description'])): ?>
+                                <p><?php echo htmlspecialchars($sk['description']); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-                <?php endforeach; ?>
             </div>
-        </div>
         <?php endif; ?>
     </div>
 
@@ -299,14 +306,14 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
 
     });</script>      
 
-    				</div>
-				</div>
-					</div>
-		</div>
-					</div>
-		</section>
-				</div>
-		
+                    </div>
+                </div>
+                    </div>
+        </div>
+                    </div>
+        </section>
+                </div>
+        
 
 </div>
 </div>
@@ -316,16 +323,16 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
             <div class="container">
                 <div class="footer-content text-center">
                      
-                     <a href="../index.html" class="logo">
-				
+                     <a href="../index.php " class="logo">
+                
 <img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
-				
+                
                     </a>
                                         
-                     <ul data-in="#" data-out="#" class="footer-menu" id="menu-footer-menu"><li id="menu-item-1856" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1856"><a   title="Home" href="../index.html">Home</a></li>
-<li id="menu-item-1857" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1857"><a   title="About" href="../about-page/index.html">About</a></li>
-<li id="menu-item-1859" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1859"><a   title="Works" href="../work/index.html">Works</a></li>
-<li id="menu-item-1858" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1858"><a   title="Contact" href="../contact-info/index.html">Contact</a></li>
+                     <ul data-in="#" data-out="#" class="footer-menu" id="menu-footer-menu"><li id="menu-item-1856" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1856"><a   title="Home" href="../index.php ">Home</a></li>
+<li id="menu-item-1857" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1857"><a   title="About" href="../about-page/index.php ">About</a></li>
+<li id="menu-item-1859" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1859"><a   title="Works" href="../work/index.php ">Works</a></li>
+<li id="menu-item-1858" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1858"><a   title="Contact" href="../contact-info/index.php ">Contact</a></li>
 </ul>                 
                     <p class="copyright">
                         © All rights reserved by <span>
@@ -342,33 +349,33 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16
 <script type="speculationrules">
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/gridx\/*"},{"not":{"href_matches":["\/gridx\/wp-*.php","\/gridx\/wp-admin\/*","\/gridx\/wp-content\/uploads\/*","\/gridx\/wp-content\/*","\/gridx\/wp-content\/plugins\/*","\/gridx\/wp-content\/themes\/gridx\/*","\/gridx\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
 </script>
-			<script>
-				const lazyloadRunObserver = () => {
-					const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
-					const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
-						entries.forEach( ( entry ) => {
-							if ( entry.isIntersecting ) {
-								let lazyloadBackground = entry.target;
-								if( lazyloadBackground ) {
-									lazyloadBackground.classList.add( 'e-lazyloaded' );
-								}
-								lazyloadBackgroundObserver.unobserve( entry.target );
-							}
-						});
-					}, { rootMargin: '200px 0px 200px 0px' } );
-					lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
-						lazyloadBackgroundObserver.observe( lazyloadBackground );
-					} );
-				};
-				const events = [
-					'DOMContentLoaded',
-					'elementor/lazyload/observe',
-				];
-				events.forEach( ( event ) => {
-					document.addEventListener( event, lazyloadRunObserver );
-				} );
-			</script>
-			<script src="../wp-includes/js/dist/hooks.min4fdd.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+            <script>
+                const lazyloadRunObserver = () => {
+                    const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
+                    const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
+                        entries.forEach( ( entry ) => {
+                            if ( entry.isIntersecting ) {
+                                let lazyloadBackground = entry.target;
+                                if( lazyloadBackground ) {
+                                    lazyloadBackground.classList.add( 'e-lazyloaded' );
+                                }
+                                lazyloadBackgroundObserver.unobserve( entry.target );
+                            }
+                        });
+                    }, { rootMargin: '200px 0px 200px 0px' } );
+                    lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
+                        lazyloadBackgroundObserver.observe( lazyloadBackground );
+                    } );
+                };
+                const events = [
+                    'DOMContentLoaded',
+                    'elementor/lazyload/observe',
+                ];
+                events.forEach( ( event ) => {
+                    document.addEventListener( event, lazyloadRunObserver );
+                } );
+            </script>
+            <script src="../wp-includes/js/dist/hooks.min4fdd.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
 <script src="../wp-includes/js/dist/i18n.minc33c.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
 <script id="wp-i18n-js-after">
 wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
@@ -387,7 +394,7 @@ var wpcf7 = {
 <script src="../wp-content/themes/gridx/assets/js/bootstrap.bundle.min32d4.js?ver=6.8.3" id="bootstrap-js"></script>
 <script src="../wp-content/themes/gridx/assets/js/aos32d4.js?ver=6.8.3" id="aos-js"></script>
 <script src="../wp-content/themes/gridx/assets/js/main32d4.js?ver=6.8.3" id="gridx-main-js"></script>
-<script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.html?ver=6.8.3" id="ajax-form-js"></script>
+<script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.php ?ver=6.8.3" id="ajax-form-js"></script>
 <script src="../wp-content/plugins/elementor/assets/js/webpack.runtime.min242d.js?ver=3.31.2" id="elementor-webpack-runtime-js"></script>
 <script src="../wp-content/plugins/elementor/assets/js/frontend-modules.min242d.js?ver=3.31.2" id="elementor-frontend-modules-js"></script>
 <script src="../wp-includes/js/jquery/ui/core.minb37e.js?ver=1.13.3" id="jquery-ui-core-js"></script>

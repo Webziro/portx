@@ -5,14 +5,14 @@ $theme = isset($_SESSION['theme']) ? $_SESSION['theme'] : 'dark';
 
 // Build page title from filename for the header bar
 $pageTitles = [
-    'dashboard.php'   => 'Dashboard',
-    'profile.php'     => 'Profile Settings',
-    'services.php'    => 'Services',
-    'projects.php'    => 'Projects',
-    'blogs.php'       => 'Blogs',
-    'credentials.php' => 'Credentials',
+    'dashboard'   => 'Dashboard',
+    'profile'     => 'Profile Settings',
+    'services'    => 'Services',
+    'projects'    => 'Projects',
+    'blogs'       => 'Blogs',
+    'credentials' => 'Credentials',
 ];
-$pageTitle = $pageTitles[basename($_SERVER['PHP_SELF'])] ?? 'Dashboard';
+$pageTitle = $pageTitles[str_replace('.php', '', basename($_SERVER['PHP_SELF']))] ?? 'Dashboard';
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="<?php echo $theme; ?>">
@@ -87,39 +87,39 @@ $pageTitle = $pageTitles[basename($_SERVER['PHP_SELF'])] ?? 'Dashboard';
                 </h4>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>" href="dashboard.php">
+                        <a class="nav-link <?php echo str_replace('.php', '', basename($_SERVER['PHP_SELF'])) == 'dashboard' ? 'active' : ''; ?>" href="dashboard">
                             <i class="lucide-home"></i> Overview
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>" href="profile.php">
+                        <a class="nav-link <?php echo str_replace('.php', '', basename($_SERVER['PHP_SELF'])) == 'profile' ? 'active' : ''; ?>" href="profile">
                             <i class="lucide-user"></i> Profile
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'active' : ''; ?>" href="services.php">
+                        <a class="nav-link <?php echo str_replace('.php', '', basename($_SERVER['PHP_SELF'])) == 'services' ? 'active' : ''; ?>" href="services">
                             <i class="lucide-wrench"></i> Services
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'projects.php' ? 'active' : ''; ?>" href="projects.php">
+                        <a class="nav-link <?php echo str_replace('.php', '', basename($_SERVER['PHP_SELF'])) == 'projects' ? 'active' : ''; ?>" href="projects">
                             <i class="lucide-briefcase"></i> Projects
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'blogs.php' ? 'active' : ''; ?>" href="blogs.php">
+                        <a class="nav-link <?php echo str_replace('.php', '', basename($_SERVER['PHP_SELF'])) == 'blogs' ? 'active' : ''; ?>" href="blogs">
                             <i class="lucide-pen-tool"></i> Blogs
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'credentials.php' ? 'active' : ''; ?>" href="credentials.php">
+                        <a class="nav-link <?php echo str_replace('.php', '', basename($_SERVER['PHP_SELF'])) == 'credentials' ? 'active' : ''; ?>" href="credentials">
                             <i class="lucide-file-text"></i> Credentials
                         </a>
                     </li>
                 </ul>
                 <hr>
                 <div class="mt-auto">
-                    <a href="logout.php" class="nav-link text-danger">
+                    <a href="logout" class="nav-link text-danger">
                         <i class="lucide-log-out"></i> Logout
                     </a>
                 </div>

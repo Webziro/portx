@@ -13,6 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $experience_start_year = (int)($_POST['experience_start_year'] ?? 2021);
     $clients_count  = trim($_POST['clients_count'] ?? '');
     $projects_count = trim($_POST['projects_count'] ?? '');
+    $cv_url         = trim($_POST['cv_url'] ?? '');
+    $email          = trim($_POST['email'] ?? '');
+    $phone          = trim($_POST['phone'] ?? '');
 
     $hero_image = trim($_POST['existing_hero_image'] ?? '');
     if (!empty($_FILES['hero_image']['name'])) {
@@ -32,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    $pdo->prepare("UPDATE profile SET full_name=?, title=?, bio=?, hero_image=?, work_preview_image=?, experience_start_year=?, clients_count=?, projects_count=? WHERE id=1")
-        ->execute([$full_name, $title, $bio, $hero_image, $work_preview_image, $experience_start_year, $clients_count, $projects_count]);
+    $pdo->prepare("UPDATE profile SET full_name=?, title=?, bio=?, hero_image=?, work_preview_image=?, experience_start_year=?, clients_count=?, projects_count=?, cv_url=?, email=?, phone=? WHERE id=1")
+        ->execute([$full_name, $title, $bio, $hero_image, $work_preview_image, $experience_start_year, $clients_count, $projects_count, $cv_url, $email, $phone]);
 
     $success = "Profile updated successfully!";
 }
@@ -80,6 +83,18 @@ include 'header.php';
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Total Projects Count (e.g. +20)</label>
                     <input type="text" name="projects_count" class="form-control" value="<?= htmlspecialchars($profile['projects_count'] ?? '') ?>">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Email Address</label>
+                    <input type="email" name="email" class="form-control" placeholder="e.g. hello@example.com" value="<?= htmlspecialchars($profile['email'] ?? '') ?>">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Phone Number</label>
+                    <input type="text" name="phone" class="form-control" placeholder="e.g. +234 808..." value="<?= htmlspecialchars($profile['phone'] ?? '') ?>">
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">CV Link (Drive, Dropbox, etc.)</label>
+                    <input type="text" name="cv_url" class="form-control" placeholder="e.g. https://drive.google.com/..." value="<?= htmlspecialchars($profile['cv_url'] ?? '') ?>">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Hero Image</label>

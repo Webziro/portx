@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin_id'])) { header("Location: login.php"); exit(); }
+if (!isset($_SESSION['admin_id'])) { header("Location: login"); exit(); }
 require_once '../include/db.php';
 
 // Fetch counts for dashboard stats
@@ -14,11 +14,14 @@ $profile          = $pdo->query("SELECT * FROM profile WHERE id = 1")->fetch();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['quick_save'])) {
     $pdo->prepare("UPDATE profile SET full_name=?, title=? WHERE id=1")
         ->execute([trim($_POST['full_name']), trim($_POST['title'])]);
-    header("Location: dashboard.php?saved=1"); exit();
+    header("Location: dashboard?saved=1"); exit();
 }
 
 include 'header.php';
 ?>
+
+    
+
 
 <div class="row g-4">
     <div class="col-md-3">
@@ -90,3 +93,4 @@ include 'header.php';
 </div>
 
 <?php include 'footer.php'; ?>
+

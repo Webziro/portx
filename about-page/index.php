@@ -1,9 +1,9 @@
-<?php 
-    include "../include/title.php";
-    require_once '../include/db.php';
-    $profile     = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
-    $experiences = $pdo->query("SELECT * FROM credentials WHERE type='experience' ORDER BY display_order")->fetchAll();
-    $educations  = $pdo->query("SELECT * FROM credentials WHERE type='education'  ORDER BY display_order")->fetchAll();
+<?php
+include "../include/title.php";
+require_once '../include/db.php';
+$profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
+$experiences = $pdo->query("SELECT * FROM credentials WHERE type='experience' ORDER BY display_order")->fetchAll();
+$educations = $pdo->query("SELECT * FROM credentials WHERE type='education'  ORDER BY display_order")->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -11,13 +11,14 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <!-- Head tag starts -->
-    <?php 
-        include "../include/head.php";
-    ?>
+<?php
+include "../include/head.php";
+?>
 <!-- Head tag end -->
 
 
 <!-- Body -->
+
 <body
     class="wp-singular page-template page-template-page-templates page-template-main-about page-template-page-templatesmain-about-php page page-id-926 wp-theme-gridx elementor-default elementor-kit-16 elementor-page elementor-page-926">
 
@@ -34,17 +35,19 @@
                 <div class="gx-row d-flex align-items-center justify-content-between">
 
 
-                    <a href="../index.php" class="logo">
-                        <img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
+                     <a href="../" class="logo">
+                        <img src="wp-content/uploads/logo.png" alt="Logo">
                     </a>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
 
-                    <?php 
+                    <?php
                         include "../include/navigation.php";
                     ?>
 
-                    <a href="../contact-info/index.php" class="theme-btn">Let s talk</a>
+                    <!-- Dynamic cv link -->
+                    <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
+                        target="_blank">Download CV</a> 
 
                     <!-- End Navigation -->
 
@@ -87,7 +90,7 @@
                                                                     <img decoding="async"
                                                                         src="../wp-content/themes/gridx/assets/images/bg1.png"
                                                                         alt="img" class="bg-img">
-                                                                    
+
 
                                                                     <div class="image-inner">
                                                                         <img decoding="async"
@@ -140,11 +143,13 @@
                                                                         src="../wp-content/themes/gridx/assets/images/icon2.png"
                                                                         alt="img" class="star-icon">
 
-                                                                    <h2><?php echo htmlspecialchars($profile['full_name'] ?? 'Stanley Amaziro'); ?></h2>
+                                                                    <h2><?php echo htmlspecialchars($profile['full_name'] ?? 'Stanley Amaziro'); ?>
+                                                                    </h2>
 
                                                                     <!-- Fetched from database -->
 
-                                                                    <p><?php echo nl2br(htmlspecialchars($profile['bio'] ?? 'Backend and Systems Engineer passionate about scalable solutions.')); ?></p>
+                                                                    <p><?php echo nl2br(htmlspecialchars($profile['bio'] ?? 'Backend and Systems Engineer passionate about scalable solutions.')); ?>
+                                                                    </p>
                                                                 </div>
 
                                                             </div>
@@ -201,19 +206,27 @@
 
                                                                     <ul>
                                                                         <?php if (!empty($experiences)): ?>
-                                                                        <?php foreach ($experiences as $exp): ?>
-                                                                        <li>
-                                                                            <?php if (!empty($exp['date_range'])): ?>
-                                                                            <p class="date"><?php echo htmlspecialchars($exp['date_range']); ?></p>
-                                                                            <?php endif; ?>
-                                                                            <h3><?php echo htmlspecialchars($exp['title']); ?></h3>
-                                                                            <?php if (!empty($exp['organization'])): ?>
-                                                                            <p class="type"><?php echo htmlspecialchars($exp['organization']); ?></p>
-                                                                            <?php endif; ?>
-                                                                        </li>
-                                                                        <?php endforeach; ?>
+                                                                            <?php foreach ($experiences as $exp): ?>
+                                                                                <li>
+                                                                                    <?php if (!empty($exp['date_range'])): ?>
+                                                                                        <p class="date">
+                                                                                            <?php echo htmlspecialchars($exp['date_range']); ?>
+                                                                                        </p>
+                                                                                    <?php endif; ?>
+                                                                                    <h3><?php echo htmlspecialchars($exp['title']); ?>
+                                                                                    </h3>
+                                                                                    <?php if (!empty($exp['organization'])): ?>
+                                                                                        <p class="type">
+                                                                                            <?php echo htmlspecialchars($exp['organization']); ?>
+                                                                                        </p>
+                                                                                    <?php endif; ?>
+                                                                                </li>
+                                                                            <?php endforeach; ?>
                                                                         <?php else: ?>
-                                                                        <li><p class="date">—</p><h3>No entries yet</h3></li>
+                                                                            <li>
+                                                                                <p class="date">—</p>
+                                                                                <h3>No entries yet</h3>
+                                                                            </li>
                                                                         <?php endif; ?>
                                                                     </ul>
                                                                 </div>
@@ -252,30 +265,39 @@
 
                                                                     <ul>
                                                                         <?php if (!empty($educations)): ?>
-                                                                        <?php foreach ($educations as $edu): ?>
-                                                                        <li>
-                                                                            <?php if (!empty($edu['date_range'])): ?>
-                                                                            <p class="date"><?php echo htmlspecialchars($edu['date_range']); ?></p>
-                                                                            <?php endif; ?>
-                                                                            <h3><?php echo htmlspecialchars($edu['title']); ?></h3>
-                                                                            <?php if (!empty($edu['organization'])): ?>
-                                                                            <p class="type"><?php echo htmlspecialchars($edu['organization']); ?></p>
-                                                                            <?php endif; ?>
-                                                                        </li>
-                                                                        <?php endforeach; ?>
+                                                                            <?php foreach ($educations as $edu): ?>
+                                                                                <li>
+                                                                                    <?php if (!empty($edu['date_range'])): ?>
+                                                                                        <p class="date">
+                                                                                            <?php echo htmlspecialchars($edu['date_range']); ?>
+                                                                                        </p>
+                                                                                    <?php endif; ?>
+                                                                                    <h3><?php echo htmlspecialchars($edu['title']); ?>
+                                                                                    </h3>
+                                                                                    <?php if (!empty($edu['organization'])): ?>
+                                                                                        <p class="type">
+                                                                                            <?php echo htmlspecialchars($edu['organization']); ?>
+                                                                                        </p>
+                                                                                    <?php endif; ?>
+                                                                                </li>
+                                                                            <?php endforeach; ?>
                                                                         <?php else: ?>
-                                                                        <li><p class="date">—</p><h3>No entries yet</h3></li>
+                                                                            <li>
+                                                                                <p class="date">—</p>
+                                                                                <h3>No entries yet</h3>
+                                                                            </li>
                                                                         <?php endif; ?>
                                                                     </ul>
 
-                                                                        
-                                                                         
-                                                                        <div style="margin-top: 40px;" class="d-flex align-items-left justify-content-between">
-                                                                            <div class="infos">
-                                                                                <p>Download Credentials</p>
-                                                                            </div>
+
+
+                                                                    <div style="margin-top: 40px;"
+                                                                        class="d-flex align-items-left justify-content-between">
+                                                                        <div class="infos">
+                                                                            <p>Download Credentials</p>
+                                                                        </div>
                                                                         <a href="https://drive.google.com/file/d/1Od6lXEPpBnEWDI0LFEwXwNJTH-6tFA2L/view"
-                                                                            class="about-btn">                                                                                                                                                                                          
+                                                                            class="about-btn">
 
                                                                             <img decoding="async"
                                                                                 src="../wp-content/themes/gridx/assets/images/icon.svg"
@@ -326,7 +348,7 @@
 
                                                             <!-- Start Profiles Box-->
 
-                                                            <?php 
+                                                            <?php
                                                                 include "../include/socialMediaLinks.php";
                                                             ?>
 
@@ -356,7 +378,7 @@
 
                                                                 <div class="about-contact-box info-box shadow-box">
                                                                     <a class="overlay-link"
-                                                                        href="../contact-info/index.php"></a>
+                                                                        href="../contact-info"></a>
 
                                                                     <img decoding="async"
                                                                         src="../wp-content/themes/gridx/assets/images/bg1.png"
@@ -371,7 +393,7 @@
 
 
                                                                     <h2>Let's <br>work <span>together.</h2>
-                                                                    <a href="../contact-info/index.php"
+                                                                    <a href="../contact-info"
                                                                         class="about-btn">
 
 
@@ -409,7 +431,7 @@
                                                             <div data-aos="zoom-in" class="about-crenditials-box">
                                                                 <div class="info-box shadow-box h-full">
                                                                     <a class="overlay-link"
-                                                                        href="../credential/index.php"></a>
+                                                                        href="../credential"></a>
 
 
                                                                     <img decoding="async"
@@ -426,10 +448,10 @@
                                                                         <div class="infos">
                                                                             <h5>MORE ABOUT ME</h5>
                                                                             <h2>Credentials</h2>
-                                                                    </div>
+                                                                        </div>
 
-                                                                        <a href="../credential/index.php"
-                                                                            class="about-btn">                                                                                                                                                                                          
+                                                                        <a href="../credential"
+                                                                            class="about-btn">
 
                                                                             <img decoding="async"
                                                                                 src="../wp-content/themes/gridx/assets/images/icon.svg"
@@ -464,13 +486,13 @@
             </div>
         </section>
         <!-- Footer -->
-       <?php 
-            include "../include/footer.php";
+        <?php
+        include "../include/footer.php";
         ?>
 
     </main>
 
-<script type="speculationrules">
+    <script type="speculationrules">
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/gridx\/*"},{"not":{"href_matches":["\/gridx\/wp-*.php","\/gridx\/wp-admin\/*","\/gridx\/wp-content\/uploads\/*","\/gridx\/wp-content\/*","\/gridx\/wp-content\/plugins\/*","\/gridx\/wp-content\/themes\/gridx\/*","\/gridx\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
 </script>
     <script>
@@ -519,7 +541,7 @@
     <script src="../wp-content/themes/gridx/assets/js/bootstrap.bundle.min32d4.js?ver=6.8.3" id="bootstrap-js"></script>
     <script src="../wp-content/themes/gridx/assets/js/aos32d4.js?ver=6.8.3" id="aos-js"></script>
     <script src="../wp-content/themes/gridx/assets/js/main32d4.js?ver=6.8.3" id="gridx-main-js"></script>
-    <script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.html?ver=6.8.3" id="ajax-form-js"></script>
+    <script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.php ?ver=6.8.3" id="ajax-form-js"></script>
     <script src="../wp-content/plugins/elementor/assets/js/webpack.runtime.min242d.js?ver=3.31.2"
         id="elementor-webpack-runtime-js"></script>
     <script src="../wp-content/plugins/elementor/assets/js/frontend-modules.min242d.js?ver=3.31.2"

@@ -1,3 +1,5 @@
+<?php include_once 'path_helper.php'; ?>
+
 <head>
     <!-- Head -->
     <meta charset="UTF-8">
@@ -6,7 +8,8 @@
     <title><?php echo $title; ?></title>
     <meta name='robots' content='max-image-preview:large' />
 
-    <link rel="icon" type="image/png" href="/web/portfolio/wp-content/themes/gridx/assets/images/stanley.png">
+    <link rel="icon" type="image/png"
+        href="<?php echo asset_url('wp-content/themes/gridx/assets/images/logo.png'); ?>">
 
     <style>
         img:is([sizes="auto" i], [sizes^="auto," i]) {
@@ -17,10 +20,10 @@
     <link rel='dns-prefetch' href='http://fonts.googleapis.com/' />
     <link rel='preconnect' href='https://fonts.gstatic.com/' crossorigin />
     <link rel="alternate" type="application/rss+xml" title="<?php echo $title; ?> &raquo; Feed"
-        href="/web/portfolio/feed/index.php" />
+        href="<?php echo asset_url('feed/index.php'); ?>" />
 
     <link rel="alternate" type="application/rss+xml" title="<?php echo $title; ?> &raquo; Comments Feed"
-        href="/web/portfolio/comments/feed/index.php" />
+        href="<?php echo asset_url('comments/feed/index.php'); ?>" />
 
     <script>
         window._wpemojiSettings = { "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/", "ext": ".png", "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/", "svgExt": ".svg", "source": { "concatemoji": "https:\/\/wpriverthemes.com\/gridx\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.3" } };
@@ -412,27 +415,35 @@
 
 
     <link rel='stylesheet' id='contact-form-7-css'
-        href='/web/portfolio/wp-content/plugins/contact-form-7/includes/css/styles6a4d.css?ver=6.1.1' media='all' />
-    <link rel='stylesheet' id='icon-css' href='/web/portfolio/wp-content/themes/gridx/assets/css/iconoir32d4.css?ver=6.8.3'
+        href='<?php echo asset_url('wp-content/plugins/contact-form-7/includes/css/styles6a4d.css?ver=6.1.1'); ?>'
         media='all' />
-    <link rel='stylesheet' id='bootstrap-css' href='/web/portfolio/wp-content/themes/gridx/assets/css/bootstrap.min32d4.css?ver=6.8.3'
+    <link rel='stylesheet' id='icon-css'
+        href='<?php echo asset_url('wp-content/themes/gridx/assets/css/iconoir32d4.css?ver=6.8.3'); ?>' media='all' />
+    <link rel='stylesheet' id='bootstrap-css'
+        href='<?php echo asset_url('wp-content/themes/gridx/assets/css/bootstrap.min32d4.css?ver=6.8.3'); ?>'
         media='all' />
-    <link rel='stylesheet' id='aos-css' href='/web/portfolio/wp-content/themes/gridx/assets/css/aos32d4.css?ver=6.8.3' media='all' />
-    <link rel='stylesheet' id='gridx-style-css' href='/web/portfolio/wp-content/themes/gridx/assets/css/style32d4.css?ver=6.8.3'
-        media='all' />
+    <link rel='stylesheet' id='aos-css'
+        href='<?php echo asset_url('wp-content/themes/gridx/assets/css/aos32d4.css?ver=6.8.3'); ?>' media='all' />
+    <link rel='stylesheet' id='gridx-style-css'
+        href='<?php echo asset_url('wp-content/themes/gridx/assets/css/style32d4.css?ver=6.8.3'); ?>' media='all' />
     <link rel='stylesheet' id='gridx-unit-test-css'
-        href='/web/portfolio/wp-content/themes/gridx/assets/css/gridx-unit-test32d4.css?ver=6.8.3' media='all' />
+        href='<?php echo asset_url('wp-content/themes/gridx/assets/css/gridx-unit-test32d4.css?ver=6.8.3'); ?>'
+        media='all' />
     <link rel='stylesheet' id='gridx-fonts-css'
         href='http://fonts.googleapis.com/css?family=Inter%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C%26subset%3Dlatin%2Clatin-ext&amp;ver=1.0.0'
         media='all' />
     <link rel='stylesheet' id='elementor-icons-css'
-        href='/web/portfolio/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min2778.css?ver=5.43.0' media='all' />
+        href='<?php echo asset_url('wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min2778.css?ver=5.43.0'); ?>'
+        media='all' />
     <link rel='stylesheet' id='elementor-frontend-css'
-        href='/web/portfolio/wp-content/plugins/elementor/assets/css/frontend.min242d.css?ver=3.31.2' media='all' />
+        href='<?php echo asset_url('wp-content/plugins/elementor/assets/css/frontend.min242d.css?ver=3.31.2'); ?>'
+        media='all' />
     <link rel='stylesheet' id='elementor-post-16-css'
-        href='/web/portfolio/wp-content/uploads/elementor/css/post-16502b.css?ver=1759267250' media='all' />
+        href='<?php echo asset_url('wp-content/uploads/elementor/css/post-16502b.css?ver=1759267250'); ?>'
+        media='all' />
     <link rel='stylesheet' id='elementor-post-13-css'
-        href='/web/portfolio/wp-content/uploads/elementor/css/post-13485e.css?ver=1759272146' media='all' />
+        href='<?php echo asset_url('wp-content/uploads/elementor/css/post-13485e.css?ver=1759272146'); ?>'
+        media='all' />
     <link rel="preload" as="style"
         href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap&amp;ver=1750335307" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap&amp;ver=1750335307"
@@ -441,21 +452,25 @@
             href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap&amp;ver=1750335307" />
     </noscript>
     <link rel='stylesheet' id='elementor-gf-local-roboto-css'
-        href='/web/portfolio/wp-content/uploads/elementor/google-fonts/css/roboto53af.css?ver=1750335123' media='all' />
+        href='<?php echo asset_url('wp-content/uploads/elementor/google-fonts/css/roboto53af.css?ver=1750335123'); ?>'
+        media='all' />
     <link rel='stylesheet' id='elementor-gf-local-robotoslab-css'
-        href='/web/portfolio/wp-content/uploads/elementor/google-fonts/css/robotoslab6055.css?ver=1750335144' media='all' />
-    <script src="/web/portfolio/wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
-    <script src="/web/portfolio/wp-includes/js/jquery/jquery-migrate.min5589.js?ver=3.4.1" id="jquery-migrate-js"></script>
-    <link rel="https://api.w.org/" href="/web/portfolio/wp-json/index.html" />
-    <link rel="alternate" title="JSON" type="application/json" href="/web/portfolio/wp-json/wp/v2/pages/13.json" />
-    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/web/portfolio/xmlrpc0db0.php?rsd" />
+        href='<?php echo asset_url('wp-content/uploads/elementor/google-fonts/css/robotoslab6055.css?ver=1750335144'); ?>'
+        media='all' />
+    <script src="<?php echo asset_url('wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1'); ?>"
+        id="jquery-core-js"></script>
+    <script src="<?php echo asset_url('wp-includes/js/jquery/jquery-migrate.min5589.js?ver=3.4.1'); ?>"
+        id="jquery-migrate-js"></script>
+    <link rel="https://api.w.org/" href="wp-json/index.php " />
+    <link rel="alternate" title="JSON" type="application/json" href="wp-json/wp/v2/pages/13.json" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="xmlrpc0db0.php?rsd" />
     <meta name="generator" content="WordPress 6.8.3" />
-    <link rel="canonical" href="/web/portfolio/index.html" />
-    <link rel='shortlink' href='/web/portfolio/index.html' />
+    <link rel="canonical" href="index.php " />
+    <link rel='shortlink' href='index.php ' />
     <link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed"
-        href="/web/portfolio/wp-json/oembed/1.0/embed00f2.json?url=https%3A%2F%2Fwpriverthemes.com%2Fgridx%2F" />
+        href="wp-json/oembed/1.0/embed00f2.json?url=https%3A%2F%2Fwpriverthemes.com%2Fgridx%2F" />
     <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed"
-        href="/web/portfolio/wp-json/oembed/1.0/embed8394?url=https%3A%2F%2Fwpriverthemes.com%2Fgridx%2F&amp;format=xml" />
+        href="wp-json/oembed/1.0/embed8394?url=https%3A%2F%2Fwpriverthemes.com%2Fgridx%2F&amp;format=xml" />
     <meta name="generator" content="Redux 4.5.7" />
 
     <style>
@@ -474,8 +489,8 @@
 
     <meta name="generator"
         content="Elementor 3.31.2; features: additional_custom_breakpoints, e_element_cache; settings: css_print_method-external, google_font-enabled, font_display-swap">
-    
-    
+
+
     <style>
         .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
         .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
@@ -526,6 +541,13 @@
         .margin-0,
         .margin-0 .elementor-widget-wrap {
             margin: 0 !important;
+        }
+
+        .header-area .logo img,
+        .footer-area .logo img {
+            max-height: 50px;
+            width: auto;
+            object-fit: contain;
         }
     </style>
 

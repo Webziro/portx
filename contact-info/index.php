@@ -1,13 +1,16 @@
-<?php 
-    include "../include/title.php";
+<?php
+include "../include/title.php";
+require_once "../include/db.php";
+
+$profile = $pdo->query("SELECT * FROM profile WHERE id = 1")->fetch();
 ?>
 
 <!DOCTYPE html>
 <html lang="en-US">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
-<?php 
-    include "../include/head.php";
+<?php
+include "../include/head.php";
 ?>
 
 <body
@@ -26,21 +29,18 @@
                 <div class="gx-row d-flex align-items-center justify-content-between">
 
 
-                    <a href="../index.html" class="logo">
-
-
-
-                        <img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
-
-
+                    <a href="../" class="logo">
+                        <img src="../wp-content/uploads/logo.png" alt="Logo">
                     </a>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
 
-                    <?php 
+                    <?php
                         include "../include/navigation.php";
                     ?>
-                    <a href="../contact-info/index.php" class="theme-btn">Let s talk</a>
+                     <!-- Dynamic cv link -->
+                    <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
+                        target="_blank">Download CV</a>
 
                     <!-- End Navigation -->
 
@@ -78,6 +78,7 @@
 
                                                 <div class="contact-infos">
                                                     <h4 data-aos="fade-up">Contact Info</h4>
+
                                                     <ul class="contact-details">
                                                         <li class="d-flex align-items-center" data-aos="zoom-in">
                                                             <div class="icon-box shadow-box">
@@ -85,7 +86,7 @@
                                                             </div>
                                                             <div class="right">
                                                                 <span>Talk to me</span>
-                                                                <h5>[EMAIL_ADDRESS]</h5>
+                                                                <h5><?= htmlspecialchars($profile['email'] ?? '[EMAIL_ADDRESS]') ?></h5>
                                                             </div>
                                                         </li>
                                                         <li class="d-flex align-items-center" data-aos="zoom-in">
@@ -94,32 +95,17 @@
                                                             </div>
                                                             <div class="right">
                                                                 <span>Contact Us</span>
-                                                                <h5>+234 808 379 2208</h5>
+                                                                <h5><?= htmlspecialchars($profile['phone'] ?? '+234 808 379 2208') ?></h5>
                                                             </div>
                                                         </li>
-                                                        <!-- <li class="d-flex align-items-center" data-aos="zoom-in">
-                                                            <div class="icon-box shadow-box">
-                                                                <i class="iconoir-pin-alt"></i>
-                                                            </div>
-                                                            <div class="right">
-                                                                <span>Location</span>
-                                                                <h5>22 Baker Street, Texas <br>United States <br>W1U 3BW
-                                                                </h5>
-                                                                <h5></h5>
-                                                            </div>
-                                                        </li> -->
                                                     </ul>
 
                                                     <h4 data-aos="fade-up">Social Info</h4>
                                                     <ul class="social-links d-flex align-center" data-aos="zoom-in">
-
-                                                        <li><a target="_blank" class="shadow-box" href="#"><i
-                                                                    class="iconoir-dribbble"></i></a></li>
-                                                        <li><a target="_blank" class="shadow-box" href="#"><i
+                                                        <li><a target="_blank" class="shadow-box" href="https://x.com/Amazirostanley"><i
                                                                     class="iconoir-twitter"></i></a></li>
-                                                        <li><a target="_blank" class="shadow-box" href="#"><i
-                                                                    class="iconoir-instagram"></i></a></li>
-
+                                                        <li><a target="_blank" class="shadow-box" href="https://www.linkedin.com/in/stanleyamaziro/"><i
+                                                                    class="iconoir-linkedin"></i></a></li>
                                                     </ul>
                                                 </div>
 
@@ -211,7 +197,8 @@
                                                                 </div>
                                                                 <div class="input-group">
                                                                     <p><button class="theme-btn submit-btn"
-                                                                            type="submit" name="submit" id="submit">Send Message</button>
+                                                                            type="submit" name="submit" id="submit">Send
+                                                                            Message</button>
                                                                     </p>
                                                                 </div>
                                                                 <div class="wpcf7-response-output" aria-hidden="true">
@@ -240,9 +227,9 @@
             </section>
         </div>
         <!-- Footer -->
-        <?php 
-            include "../include/footer.php";
-        ?>  
+        <?php
+        include "../include/footer.php";
+        ?>
 
     </main>
 
@@ -301,7 +288,7 @@
     <script src="../wp-content/themes/gridx/assets/js/bootstrap.bundle.min32d4.js?ver=6.8.3" id="bootstrap-js"></script>
     <script src="../wp-content/themes/gridx/assets/js/aos32d4.js?ver=6.8.3" id="aos-js"></script>
     <script src="../wp-content/themes/gridx/assets/js/main32d4.js?ver=6.8.3" id="gridx-main-js"></script>
-    <script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.html?ver=6.8.3" id="ajax-form-js"></script>
+    <script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.php ?ver=6.8.3" id="ajax-form-js"></script>
     <script src="../wp-content/plugins/elementor/assets/js/webpack.runtime.min242d.js?ver=3.31.2"
         id="elementor-webpack-runtime-js"></script>
     <script src="../wp-content/plugins/elementor/assets/js/frontend-modules.min242d.js?ver=3.31.2"

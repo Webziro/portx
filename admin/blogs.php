@@ -52,14 +52,14 @@ if (isset($_GET['edit'])) {
 
 include 'header.php';
 ?>
-<!-- TinyMCE CDN -->
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<!-- CKEditor 5 CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
 <script>
-  tinymce.init({
-    selector: '#blog-content',
-    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-  });
+    ClassicEditor
+        .create(document.querySelector('#blog-content'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 
 <div class="d-flex justify-content-between align-items-center mb-4">

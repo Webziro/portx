@@ -33,10 +33,12 @@
             <div class="container">
                 <div class="gx-row d-flex align-items-center justify-content-between">
                     <a href="../" class="logo">
-                        <img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
-                    </a>
+                        <img src="../wp-content/uploads/logo.png" alt="Logo">
+                    </a>    
                     <?php include "../include/navigation.php"; ?>
-                    <a href="../contact-info/index.php" class="theme-btn">Let s talk</a>
+                    <!-- Dynamic cv link -->
+                    <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
+                        target="_blank">Download CV</a>
                     <div class="show-menu">
                         <span></span><span></span><span></span>
                     </div>
@@ -56,7 +58,7 @@
                 <div class="row">
                     <?php foreach ($blogs as $b): 
                         $imgSrc = htmlspecialchars('../' . $b['image_path']);
-                        $url    = "detail.php?id=" . $b['id'];
+                        $url    = "detail?id=" . $b['id'];
                     ?>
                     <div class="col-md-4 mb-24" data-aos="zoom-in">
                         <div class="project-item shadow-box">

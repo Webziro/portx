@@ -1,22 +1,22 @@
-<?php 
-    include "../include/title.php";
-    require_once '../include/db.php';
-    
-    $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-    if (!$id) {
-        header("Location: ../work/index.php");
-        exit;
-    }
+<?php
+include "../include/title.php";
+require_once '../include/db.php';
 
-    $stmt = $pdo->prepare("SELECT * FROM projects WHERE id = ?");
-    $stmt->execute([$id]);
-    $project = $stmt->fetch(PDO::FETCH_ASSOC);
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+if (!$id) {
+    header("Location: ../work");
+    exit;
+}
 
-    if (!$project) {
-        header("Location: ../work/index.php");
-        exit;
-    }
-?>  
+$stmt = $pdo->prepare("SELECT * FROM projects WHERE id = ?");
+$stmt->execute([$id]);
+$project = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$project) {
+    header("Location: ../work");
+    exit;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -25,9 +25,9 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <!-- Head tag starts -->
-    <?php 
-        include "../include/head.php";
-    ?>
+<?php
+include "../include/head.php";
+?>
 <!-- Head tag end -->
 
 <body
@@ -46,21 +46,18 @@
                 <div class="gx-row d-flex align-items-center justify-content-between">
 
 
-                    <a href="../index.php" class="logo">
-
-
-
-                        <img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
-
-
+                    <a href="../" class="logo">
+                        <img src="../wp-content/themes/gridx/assets/images/logo.png" alt="Logo">
                     </a>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
 
-                    <?php 
+                    <?php
                         include "../include/navigation.php";
                     ?>
-                    <a href="../contact-info/index.php" class="theme-btn">Let s talk</a>
+                    <!-- Dynamic cv link -->
+                    <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
+                        target="_blank">Download CV</a>
 
                     <!-- End Navigation -->
 
@@ -71,7 +68,7 @@
                     </div>
                 </div>
             </div>
-</header>
+        </header>
 
 
         <!-- Project Details -->
@@ -97,7 +94,8 @@
                                         <section class="breadcrumb-area">
                                             <div class="container">
                                                 <div class="breadcrumb-content" data-aos="fade-up">
-                                                    <p><?php echo htmlspecialchars(strtoupper($project['category'])); ?></p>
+                                                    <p><?php echo htmlspecialchars(strtoupper($project['category'])); ?>
+                                                    </p>
                                                     <h1 class="section-heading">
 
                                                         <img decoding="async"
@@ -115,7 +113,8 @@
                                         </section>
 
                                         <div class="project-details-img" data-aos="zoom-in">
-                                            <img decoding="async" src="../<?php echo htmlspecialchars($project['image_path']); ?>" alt="">
+                                            <img decoding="async"
+                                                src="../<?php echo htmlspecialchars($project['image_path']); ?>" alt="">
                                         </div>
 
                                         <script>
@@ -161,7 +160,8 @@
 
                                                 <div class="project-details-info flex-1">
                                                     <h4><?php echo htmlspecialchars($project['title']); ?></h4>
-                                                    <p><?php echo nl2br(htmlspecialchars($project['description'])); ?></p>
+                                                    <p><?php echo nl2br(htmlspecialchars($project['description'])); ?>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,9 +195,11 @@
                                         <!-- Start WorkDetail -->
 
                                         <?php if (!empty($project['image2_path'])): ?>
-                                        <div class="project-details-2-img mb-24" data-aos="zoom-in">
-                                            <img decoding="async" src="../<?php echo htmlspecialchars($project['image2_path']); ?>" alt="">
-                                        </div>
+                                            <div class="project-details-2-img mb-24" data-aos="zoom-in">
+                                                <img decoding="async"
+                                                    src="../<?php echo htmlspecialchars($project['image2_path']); ?>"
+                                                    alt="">
+                                            </div>
                                         <?php endif; ?>
 
 
@@ -234,18 +236,22 @@
 
                                         <div class="row mb-24">
                                             <?php if (!empty($project['image3_path'])): ?>
-                                            <div class="col-md-6" data-aos="zoom-in">
-                                                <div class="project-details-3-img">
-                                                    <img decoding="async" src="../<?php echo htmlspecialchars($project['image3_path']); ?>" alt="">
+                                                <div class="col-md-6" data-aos="zoom-in">
+                                                    <div class="project-details-3-img">
+                                                        <img decoding="async"
+                                                            src="../<?php echo htmlspecialchars($project['image3_path']); ?>"
+                                                            alt="">
+                                                    </div>
                                                 </div>
-                                            </div>
                                             <?php endif; ?>
                                             <?php if (!empty($project['image4_path'])): ?>
-                                            <div class="col-md-6" data-aos="zoom-in">
-                                                <div class="project-details-3-img">
-                                                    <img decoding="async" src="../<?php echo htmlspecialchars($project['image4_path']); ?>" alt="">
+                                                <div class="col-md-6" data-aos="zoom-in">
+                                                    <div class="project-details-3-img">
+                                                        <img decoding="async"
+                                                            src="../<?php echo htmlspecialchars($project['image4_path']); ?>"
+                                                            alt="">
+                                                    </div>
                                                 </div>
-                                            </div>
                                             <?php endif; ?>
                                         </div>
 
@@ -265,7 +271,7 @@
                         </div>
                     </div>
                 </section>
-                
+
                 <section
                     class="elementor-section elementor-top-section elementor-element elementor-element-513e7c2 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                     data-id="513e7c2" data-element_type="section">
@@ -308,17 +314,23 @@
                                                         </li>
                                                         <li>
                                                             <p>Services</p>
-                                                            <h5><?php echo htmlspecialchars($project['services']); ?></h5>
+                                                            <h5><?php echo htmlspecialchars($project['services']); ?>
+                                                            </h5>
                                                         </li>
                                                         <li>
                                                             <p>Technologies</p>
-                                                            <h5><?php echo htmlspecialchars($project['technologies']); ?></h5>
+                                                            <h5><?php echo htmlspecialchars($project['technologies']); ?>
+                                                            </h5>
                                                         </li>
                                                         <?php if (!empty($project['live_url'])): ?>
-                                                        <li>
-                                                            <p>Live Preview</p>
-                                                            <h5><a href="<?php echo htmlspecialchars($project['live_url']); ?>" target="_blank" style="color: #fff; text-decoration: underline;">View Project <i class="iconoir-open-new-window"></i></a></h5>
-                                                        </li>
+                                                            <li>
+                                                                <p>Live Preview</p>
+                                                                <h5><a href="<?php echo htmlspecialchars($project['live_url']); ?>"
+                                                                        target="_blank"
+                                                                        style="color: #fff; text-decoration: underline;">View
+                                                                        Project <i class="iconoir-open-new-window"></i></a>
+                                                                </h5>
+                                                            </li>
                                                         <?php endif; ?>
                                                     </ul>
                                                 </div>
@@ -353,8 +365,8 @@
                                     <div class="elementor-widget-container">
 
                                         <!-- Start Nextproject -->
-                                        
-                                        <?php 
+
+                                        <?php
                                         // Next project fetch (moved to top of sequence)
                                         $nextStmt = $pdo->prepare("SELECT id, image_path FROM projects WHERE id < ? ORDER BY id DESC LIMIT 1");
                                         $nextStmt->execute([$id]);
@@ -368,9 +380,10 @@
                                         <div class="container d-flex align-items-center justify-content-center"
                                             data-aos="zoom-in">
                                             <?php if ($nextProj): ?>
-                                            <a href="index.php?id=<?php echo $nextProj['id']; ?>" class="big-btn shadow-box">
-                                                Next Project 
-                                            </a>
+                                                <a href="./?id=<?php echo $nextProj['id']; ?>"
+                                                    class="big-btn shadow-box">
+                                                    Next Project
+                                                </a>
                                             <?php endif; ?>
                                         </div>
 
@@ -403,20 +416,22 @@
 
                                         <!-- Start Nextproject image section -->
 
-                                        
-<?php if ($nextProj && !empty($nextProj['image_path'])): ?>
-                                        <div class="project-details-img" data-aos="zoom-in">
-                                            <a href="index.php?id=<?php echo $nextProj['id']; ?>">
-                                                <img decoding="async" src="../<?php echo htmlspecialchars($nextProj['image_path']); ?>" alt="">
-                                            </a>
-                                        </div>
-<?php endif; ?>
-                                            <script>
-                                                AOS.init({
-                                                    duration: 1500,
-                                                    once: true,
 
-                                                });</script>
+                                        <?php if ($nextProj && !empty($nextProj['image_path'])): ?>
+                                            <div class="project-details-img" data-aos="zoom-in">
+                                                <a href="./?id=<?php echo $nextProj['id']; ?>">
+                                                    <img decoding="async"
+                                                        src="../<?php echo htmlspecialchars($nextProj['image_path']); ?>"
+                                                        alt="">
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                        <script>
+                                            AOS.init({
+                                                duration: 1500,
+                                                once: true,
+
+                                            });</script>
 
                                     </div>
                                 </div>
@@ -432,9 +447,9 @@
         </section>
         <!-- Footer -->
         <?php
-            include_once '../include/path_helper.php'; 
-            include '../include/footer.php';
-        ?>  
+        include_once '../include/path_helper.php';
+        include '../include/footer.php';
+        ?>
 
     </main>
 
@@ -487,7 +502,7 @@
     <script src="../wp-content/themes/gridx/assets/js/bootstrap.bundle.min32d4.js?ver=6.8.3" id="bootstrap-js"></script>
     <script src="../wp-content/themes/gridx/assets/js/aos32d4.js?ver=6.8.3" id="aos-js"></script>
     <script src="../wp-content/themes/gridx/assets/js/main32d4.js?ver=6.8.3" id="gridx-main-js"></script>
-    <script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.html?ver=6.8.3" id="ajax-form-js"></script>
+    <script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.php ?ver=6.8.3" id="ajax-form-js"></script>
     <script src="../wp-content/plugins/elementor/assets/js/webpack.runtime.min242d.js?ver=3.31.2"
         id="elementor-webpack-runtime-js"></script>
     <script src="../wp-content/plugins/elementor/assets/js/frontend-modules.min242d.js?ver=3.31.2"

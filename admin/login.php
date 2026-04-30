@@ -3,7 +3,7 @@ session_start();
 require_once '../include/db.php';
 
 if (isset($_SESSION['admin_id'])) {
-    header("Location: dashboard.php");
+    header("Location: dashboard");
     exit();
 }
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['admin_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        header("Location: dashboard.php");
+        header("Location: dashboard");
         exit();
     } else {
         $error = "Invalid username or password.";

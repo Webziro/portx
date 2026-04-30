@@ -12,7 +12,7 @@
     $blog = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$blog) {
-        header("Location: index.php");
+        header("Location: ./");
         exit();
     }
 
@@ -48,10 +48,12 @@
             <div class="container">
                 <div class="gx-row d-flex align-items-center justify-content-between">
                     <a href="../" class="logo">
-                        <img src="../wp-content/themes/gridx/assets/images/logo.svg" alt="Logo">
+                        <img src="../wp-content/uploads/logo.png" alt="Logo">
                     </a>
                     <?php include "../include/navigation.php"; ?>
-                    <a href="../contact-info/index.php" class="theme-btn">Let s talk</a>
+                    <!-- Dynamic cv link -->
+                    <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
+                        target="_blank">Download CV</a>
                     <div class="show-menu">
                         <span></span><span></span><span></span>
                     </div>
@@ -63,7 +65,7 @@
         <section class="breadcrumb-area">
             <div class="container">
                 <div class="breadcrumb-content" data-aos="fade-up">
-                    <p><a href="../index.php">HOME</a> - <a href="index.php">BLOG</a> - <?= htmlspecialchars($blog['title']) ?></p>
+                    <p><a href="../">HOME</a> - <a href="./">BLOG</a> - <?= htmlspecialchars($blog['title']) ?></p>
                     <h1 class="section-heading">
                         <img src="../wp-content/themes/gridx/assets/images/star-2.png" alt="Star">
                         <?= htmlspecialchars($blog['title']) ?>
@@ -141,7 +143,7 @@
                             <div class="blog-sidebar-inner">
                                 <div class="blog-sidebar-widget shadow-box mb-30" data-aos="zoom-in" style="padding: 30px; background: #0f0f0f; border-radius: 30px;">
                                     <h3>Search</h3>
-                                    <form action="index.php" method="get" class="d-flex" style="margin-top:15px;">
+                                    <form action="./" method="get" class="d-flex" style="margin-top:15px;">
                                         <input type="text" name="s" placeholder="Search..." class="form-control" style="background: #1a1a1a; border: none; padding: 10px; color: #fff; border-radius: 10px 0 0 10px;">
                                         <button type="submit" class="btn btn-primary" style="border-radius: 0 10px 10px 0;">Go</button>
                                     </form>
@@ -152,7 +154,7 @@
                                     <ul style="list-style: none; padding: 0; margin-top: 15px;">
                                         <?php foreach ($recentPosts as $rp): ?>
                                         <li style="margin-bottom: 10px;">
-                                            <a href="detail.php?id=<?= $rp['id'] ?>" style="color: #bcbcbc; transition: 0.3s;"><?= htmlspecialchars($rp['title']) ?></a>
+                                            <a href="detail?id=<?= $rp['id'] ?>" style="color: #bcbcbc; transition: 0.3s;"><?= htmlspecialchars($rp['title']) ?></a>
                                         </li>
                                         <?php endforeach; ?>
                                     </ul>
