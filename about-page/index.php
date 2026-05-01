@@ -36,8 +36,9 @@ include "../include/head.php";
 
 
                      <a href="../" class="logo">
-                        <img src="wp-content/uploads/logo.png" alt="Logo">
+                        <img src="../wp-content/uploads/logo.png" alt="Logo">
                     </a>
+                    
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
 

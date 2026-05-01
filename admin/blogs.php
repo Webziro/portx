@@ -57,9 +57,69 @@ include 'header.php';
 <script>
     ClassicEditor
         .create(document.querySelector('#blog-content'))
+        .then(editor => {
+            window.blogEditor = editor;
+        })
         .catch(error => {
             console.error(error);
         });
+
+    async function generateAIContent() {
+        const topic = document.getElementById('ai-topic').value;
+        const btn = document.getElementById('ai-gen-btn');
+        
+        if(!topic) {
+            alert('Please enter a topic first!');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Generating...';
+
+        try {
+            const response = await fetch('api_ai_generate.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'topic=' + encodeURIComponent(topic)
+            });
+            
+            const rawText = await response.text();
+            console.log('Raw Response:', rawText);
+            
+            let data;
+            try {
+                data = JSON.parse(rawText);
+            } catch (e) {
+                throw new Error('Invalid JSON: ' + rawText.substring(0, 100));
+            }
+
+            if(data.success) {
+                document.querySelector('input[name="title"]').value = data.title;
+                document.querySelector('textarea[name="excerpt"]').value = data.excerpt;
+                
+                if (window.blogEditor) {
+                    window.blogEditor.setData(data.content);
+                } else {
+                    // Fallback if CKEditor isn't ready
+                    document.querySelector('#blog-content').value = data.content;
+                }
+                
+                // Auto-generate slug from title
+                const slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                document.querySelector('input[name="blog_url"]').value = slug;
+
+                bootstrap.Collapse.getInstance(document.getElementById('aiCollapse')).hide();
+            } else {
+                alert('AI Error: ' + data.error);
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Connection Error: ' + e.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '✨ Generate Post';
+        }
+    }
 </script>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -71,10 +131,27 @@ include 'header.php';
 <div class="row g-4">
     <div class="col-md-4">
         <div class="card">
-            <div class="card-header bg-transparent">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                 <h5 class="mb-0"><?= $editing ? 'Edit Blog' : 'Add Blog' ?></h5>
+                <?php if (!$editing): ?>
+                    <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#aiCollapse">
+                        ✨ AI Assistant
+                    </button>
+                <?php endif; ?>
             </div>
             <div class="card-body">
+                <!-- AI Assistant Collapse -->
+                <div class="collapse mb-4" id="aiCollapse">
+                    <div class="p-3 bg-light rounded border">
+                        <label class="form-label fw-bold small text-uppercase">What should the post be about?</label>
+                        <div class="input-group">
+                            <input type="text" id="ai-topic" class="form-control" placeholder="e.g. Modern UI Trends in 2024">
+                            <button class="btn btn-primary" type="button" id="ai-gen-btn" onclick="generateAIContent()">✨ Generate Post</button>
+                        </div>
+                        <div class="form-text mt-2 small text-muted">The AI will generate a title, excerpt, and full body content for you.</div>
+                    </div>
+                </div>
+
                 <form method="POST" enctype="multipart/form-data">
                     <?php if ($editing): ?>
                         <input type="hidden" name="id" value="<?= $editing['id'] ?>">
