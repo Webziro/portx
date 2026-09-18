@@ -1,0 +1,18 @@
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# XAMPP / Local Specific
+/scratch/
+scratch.php
+scratch.py
+
+# Database dumps (except the main setup file)
+*.sql
+!setup_db.sql
+
+# Git internals
+.git/
+.github/

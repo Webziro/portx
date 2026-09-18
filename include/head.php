@@ -11,6 +11,20 @@
     <link rel="icon" type="image/png"
         href="<?php echo asset_url('wp-content/themes/gridx/assets/images/logo.png'); ?>">
 
+    <script>
+        // Safe stub for AOS to avoid "AOS is not defined" when inline inits
+        (function () {
+            window._aosQueue = window._aosQueue || [];
+            if (!window.AOS) {
+                window.AOS = {
+                    init: function (opts) {
+                        try { window._aosQueue.push(opts || {}); } catch (e) { /* eslint-disable-line no-empty */ }
+                    }
+                };
+            }
+        })();
+    </script>
+
     <style>
         img:is([sizes="auto" i], [sizes^="auto," i]) {
             contain-intrinsic-size: 3000px 1500px
@@ -457,10 +471,9 @@
     <link rel='stylesheet' id='elementor-gf-local-robotoslab-css'
         href='<?php echo asset_url('wp-content/uploads/elementor/google-fonts/css/robotoslab6055.css?ver=1750335144'); ?>'
         media='all' />
-    <script src="<?php echo asset_url('wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1'); ?>"
-        id="jquery-core-js"></script>
-    <script src="<?php echo asset_url('wp-includes/js/jquery/jquery-migrate.min5589.js?ver=3.4.1'); ?>"
-        id="jquery-migrate-js"></script>
+    <!-- Load jQuery from CDN to avoid using a possibly corrupted local copy -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" id="jquery-core-js"></script>
+    <script src="<?php echo asset_url('wp-includes/js/jquery/jquery-migrate.min5589.js?ver=3.4.1'); ?>" id="jquery-migrate-js"></script>
     <link rel="https://api.w.org/" href="wp-json/index.php " />
     <link rel="alternate" title="JSON" type="application/json" href="wp-json/wp/v2/pages/13.json" />
     <link rel="EditURI" type="application/rsd+xml" title="RSD" href="xmlrpc0db0.php?rsd" />

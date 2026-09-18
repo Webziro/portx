@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS portfolio_db;
-USE portfolio_db;
+-- CREATE DATABASE IF NOT EXISTS portfolio_db;
+-- USE portfolio_db;
 
 -- Admin users table
 CREATE TABLE IF NOT EXISTS users (
@@ -105,5 +105,5 @@ INSERT IGNORE INTO services (icon_class, label, display_order) VALUES
 -- Insert initial projects
 INSERT IGNORE INTO projects (title, category, image_path, client, year, services, technologies, description, live_url, is_featured, display_order) VALUES 
 ('Dynamic', 'WEB DESIGNING', 'wp-content/uploads/2023/04/project1.jpg', 'Raven Studio', '2023', 'Web Design', 'HTML, CSS, JS', 'Detailed description here...', 'https://example.com', TRUE, 1),
-('Diesel H1', 'PHOTOGRAPHY', 'wp-content/uploads/2023/04/project2.jpg', 'Diesel', '2022', 'Photography', 'Camera', 'Photography project...', FALSE, 2),
-('Seven Studio', 'MOBILE DESIGNING', 'wp-content/uploads/2023/04/project3.jpg', 'Seven', '2023', 'App Design', 'React Native', 'Mobile app project...', FALSE, 3);
+('Diesel H1', 'PHOTOGRAPHY', 'wp-content/uploads/2023/04/project2.jpg', 'Diesel', '2022', 'Photography', 'Camera', 'Photography project...', '#', FALSE, 2),
+('Seven Studio', 'MOBILE DESIGNING', 'wp-content/uploads/2023/04/project3.jpg', 'Seven', '2023', 'App Design', 'React Native', 'Mobile app project...', '#', FALSE, 3);

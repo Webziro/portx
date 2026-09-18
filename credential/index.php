@@ -239,7 +239,7 @@ var wpcf7 = {
 <script src="../wp-content/themes/gridx/assets/js/bootstrap.bundle.min32d4.js?ver=6.8.3" id="bootstrap-js"></script>
 <script src="../wp-content/themes/gridx/assets/js/aos32d4.js?ver=6.8.3" id="aos-js"></script>
 <script src="../wp-content/themes/gridx/assets/js/main32d4.js?ver=6.8.3" id="gridx-main-js"></script>
-<script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.php ?ver=6.8.3" id="ajax-form-js"></script>
+<script src="../wp-content/themes/gridx/assets/js/ajax-form32d4.php?ver=6.8.3" id="ajax-form-js"></script>
 <script src="../wp-content/plugins/elementor/assets/js/webpack.runtime.min242d.js?ver=3.31.2" id="elementor-webpack-runtime-js"></script>
 <script src="../wp-content/plugins/elementor/assets/js/frontend-modules.min242d.js?ver=3.31.2" id="elementor-frontend-modules-js"></script>
 <script src="../wp-includes/js/jquery/ui/core.minb37e.js?ver=1.13.3" id="jquery-ui-core-js"></script>

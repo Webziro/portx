@@ -674,10 +674,30 @@ include "include/head.php";
         id="bootstrap-js"></script>
     <script src="<?php echo asset_url('wp-content/themes/gridx/assets/js/aos32d4.js?ver=6.8.3'); ?>"
         id="aos-js"></script>
+    <script>
+        // Process any queued AOS.init calls recorded by the stub in the head
+        (function () {
+            function runQueued() {
+                try {
+                    if (window._aosQueue && window._aosQueue.length && window.AOS && typeof AOS.init === 'function') {
+                        window._aosQueue.forEach(function (opts) { AOS.init(opts); });
+                        window._aosQueue = [];
+                    }
+                } catch (e) { console.warn('AOS queue processing failed', e); }
+            }
+
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                runQueued();
+            } else {
+                document.addEventListener('DOMContentLoaded', runQueued);
+            }
+        })();
+    </script>
     <script src="<?php echo asset_url('wp-content/themes/gridx/assets/js/main32d4.js?ver=6.8.3'); ?>"
         id="gridx-main-js"></script>
-    <script src="<?php echo asset_url('wp-content/themes/gridx/assets/js/ajax-form32d4.php ?ver=6.8.3'); ?>"
+    <script src="<?php echo asset_url('wp-content/themes/gridx/assets/js/ajax-form32d4.php?ver=6.8.3'); ?>"
         id="ajax-form-js"></script>
+    <!-- Removed local jQuery document.write fallback to avoid injecting corrupted local file -->
     <script
         src="<?php echo asset_url('wp-content/plugins/elementor/assets/js/webpack.runtime.min242d.js?ver=3.31.2'); ?>"
         id="elementor-webpack-runtime-js"></script>
