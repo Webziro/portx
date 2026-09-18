@@ -148,7 +148,7 @@ include "../include/head.php";
                                                                 </fieldset>
                                                                 <div class="alert alert-success messenger-box-contact__msg"
                                                                     style="display: none" role="alert">
-                                                                    <p>Your message was sent successfully.
+                                                                    <p>Your message was sent successfully!
                                                                     </p>
                                                                 </div>
                                                                 <div class="input-group">
