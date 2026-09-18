@@ -29,6 +29,3 @@ jobs:
           passive: true
           log-level: info
 
-# Notes:
-# - Add the secrets `FTP_HOST`, `FTP_USERNAME`, `FTP_PASSWORD`, and `FTP_SERVER_DIR` in your GitHub repository settings.
-# - This workflow runs on pushes to `main`. Adjust branch as needed.
