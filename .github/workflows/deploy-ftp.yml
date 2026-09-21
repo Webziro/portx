@@ -13,20 +13,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Sync to server (FTP)
-        uses: SamKirkland/FTP-Deploy-Action@v4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          local-dir: './'
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          exclude: |
-            .git*
-            .github/*
-            node_modules
-            .env
-          passive: true
-          log-level: info
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Sync to server (FTP) using lftp
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
+        run: |
+          echo "Starting lftp mirror to $FTP_HOST:$FTP_SERVER_DIR"
+          # ensure directory exists on remote and mirror local -> remote
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "set ftp:list-options -a; set ssl:verify-certificate no; mirror -R --verbose --delete --exclude-glob .git* --exclude-glob .github --exclude-glob node_modules --exclude-glob .env ./ $FTP_SERVER_DIR; quit"
 
