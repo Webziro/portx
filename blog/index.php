@@ -51,7 +51,7 @@
             <div class="container">
                 <h1 class="section-heading mb-40" data-aos="fade-up" style="text-align: center;">
                     <img decoding="async" src="../wp-content/themes/gridx/assets/images/star-2.png" alt="img">
-                    All Blogs
+                    All Blog
                     <img decoding="async" src="../wp-content/themes/gridx/assets/images/star-2.png" alt="img">
                 </h1>
 
