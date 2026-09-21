@@ -25,5 +25,14 @@ jobs:
         run: |
           echo "Starting lftp mirror to $FTP_HOST:$FTP_SERVER_DIR"
           # ensure directory exists on remote and mirror local -> remote
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "set ftp:list-options -a; set ssl:verify-certificate no; mirror -R --verbose --delete --exclude-glob .git* --exclude-glob .github --exclude-glob node_modules --exclude-glob .env ./ $FTP_SERVER_DIR; quit"
+          # Use passive mode, continue partial transfers, run 4 parallel streams and exclude large folders
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "set ftp:list-options -a; set ftp:passive-mode on; set ssl:verify-certificate no; mirror -R --verbose --delete --continue --parallel=4 \
+            --exclude-glob .git* \
+            --exclude-glob .github \
+            --exclude-glob node_modules \
+            --exclude-glob .env \
+            --exclude-glob wp-content/uploads \
+            --exclude-glob wp-content/plugins \
+            --exclude-glob wp-content/cache \
+            ./ $FTP_SERVER_DIR; quit"
 
