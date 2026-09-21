@@ -104,7 +104,7 @@ include 'header.php';
                         </div>
                     <?php endif; ?>
                     <input type="file" name="hero_image" class="form-control" accept="image/*">
-                    <small class="text-muted">Leave empty to keep current image.</small>
+                    <small class="text-muted">Leave empty to keep current image</small>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Work Preview Image (Homepage Card)</label>
