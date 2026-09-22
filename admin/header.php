@@ -108,7 +108,7 @@ $pageTitle = $pageTitles[str_replace('.php', '', basename($_SERVER['PHP_SELF']))
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo str_replace('.php', '', basename($_SERVER['PHP_SELF'])) == 'blogs' ? 'active' : ''; ?>" href="blogs">
-                            <i class="lucide-pen-tool"></i> Blogs
+                            <i class="lucide-pen-tool"></i> Blog
                         </a>
                     </li>
                     <li class="nav-item">
