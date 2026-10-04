@@ -2,11 +2,37 @@
 include "include/title.php";
 include "include/calYearsofEx.php"; // also boots $pdo via db.php
 
-// Fetch all homepage data from DB
-$profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
-$services = $pdo->query("SELECT * FROM services ORDER BY display_order")->fetchAll();
-$latestBlog = $pdo->query("SELECT * FROM blogs ORDER BY display_order, created_at DESC LIMIT 1")->fetch();
-$latestProjects = $pdo->query("SELECT id, title FROM projects ORDER BY id DESC LIMIT 3")->fetchAll(PDO::FETCH_ASSOC);
+// Fetch all homepage data from DB safely
+$profile = [];
+$services = [];
+$latestBlog = false;
+$latestProjects = [];
+
+if (isset($pdo) && $pdo) {
+    try {
+        $profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch() ?: [];
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+
+    try {
+        $services = $pdo->query("SELECT * FROM services ORDER BY display_order")->fetchAll() ?: [];
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+
+    try {
+        $latestBlog = $pdo->query("SELECT * FROM blogs ORDER BY display_order, created_at DESC LIMIT 1")->fetch();
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+
+    try {
+        $latestProjects = $pdo->query("SELECT id, title FROM projects ORDER BY id DESC LIMIT 3")->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -45,7 +71,7 @@ include "include/head.php";
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <?php
-                        include "include/navigation.php";
+                    include "include/navigation.php";
                     ?>
 
                     <!-- Dynamic cv link -->
@@ -211,8 +237,7 @@ include "include/head.php";
                                                                             <h2>Credentials</h2>
                                                                         </div>
 
-                                                                        <a href="credential"
-                                                                            class="about-btn">
+                                                                        <a href="credential" class="about-btn">
 
                                                                             <img decoding="async"
                                                                                 src="wp-content/themes/gridx/assets/images/icon.svg"
@@ -370,8 +395,7 @@ include "include/head.php";
 
                                                     <div data-aos="zoom-in" class="flex-1 about-services-box-wrap">
                                                         <div class="about-services-box info-box shadow-box h-full">
-                                                            <a href="service-offerings"
-                                                                class="overlay-link"></a>
+                                                            <a href="service-offerings" class="overlay-link"></a>
 
                                                             <img decoding="async"
                                                                 src="wp-content/themes/gridx/assets/images/bg1.png"
@@ -430,51 +454,50 @@ include "include/head.php";
                                         <div class="elementor-widget-container">
 
                                             <!-- Start Profiles Box -->
-                                             <div class="col-md-12">
-<div class="blog-service-profile-wrap">
+                                            <div class="col-md-12">
+                                                <div class="blog-service-profile-wrap">
 
-    <div data-aos="zoom-in" class="about-profile-box-wrap">
-        <div class="about-profile-box info-box shadow-box h-full">
+                                                    <div data-aos="zoom-in" class="about-profile-box-wrap">
+                                                        <div class="about-profile-box info-box shadow-box h-full">
 
-            <img decoding="async"
-                src="wp-content/themes/gridx/assets/images/bg1.png"
-                alt="BG" class="bg-img">
-
-
-            <div class="inner-profile-icons shadow-box">
-
-                <a href="http://x.com/Amazirostanley"
-                    target="_blank">
-                    <i class="iconoir-twitter"></i>
-                </a>
-
-                <a href="https://www.linkedin.com/in/stanleyamaziro/"
-                    target="_blank">    
-                    <i class="iconoir-linkedin"></i>
-                </a>
-
-            </div>
-            <div
-                class="d-flex align-items-center justify-content-between">
-                <div class="infos">
-                    <h5>STAY WITH ME</h5>
-                    <h2>Profiles</h2>
-                </div>
-
-                <a href="contact-info" class="about-btn">
+                                                            <img decoding="async"
+                                                                src="wp-content/themes/gridx/assets/images/bg1.png"
+                                                                alt="BG" class="bg-img">
 
 
-                    <img decoding="async"
-                        src="wp-content/themes/gridx/assets/images/icon.svg"
-                        alt="Star">
+                                                            <div class="inner-profile-icons shadow-box">
 
-                </a>
+                                                                <a href="http://x.com/Amazirostanley" target="_blank">
+                                                                    <i class="iconoir-twitter"></i>
+                                                                </a>
 
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+                                                                <a href="https://www.linkedin.com/in/stanleyamaziro/"
+                                                                    target="_blank">
+                                                                    <i class="iconoir-linkedin"></i>
+                                                                </a>
+
+                                                            </div>
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <div class="infos">
+                                                                    <h5>STAY WITH ME</h5>
+                                                                    <h2>Profiles</h2>
+                                                                </div>
+
+                                                                <a href="contact-info" class="about-btn">
+
+
+                                                                    <img decoding="async"
+                                                                        src="wp-content/themes/gridx/assets/images/icon.svg"
+                                                                        alt="Star">
+
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
 
                                             <script>

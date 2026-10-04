@@ -1,4 +1,4 @@
-<?php include_once 'path_helper.php'; ?>
+<?php require_once __DIR__ . '/path_helper.php'; ?>
 
 <head>
     <!-- Head -->
@@ -8,8 +8,7 @@
     <title><?php echo $title; ?></title>
     <meta name='robots' content='max-image-preview:large' />
 
-    <link rel="icon" type="image/png"
-        href="<?php echo asset_url('wp-content/themes/gridx/assets/images/logo.png'); ?>">
+    <link rel="icon" type="image/png" href="<?php echo asset_url('wp-content/themes/gridx/assets/images/logo.png'); ?>">
 
     <script>
         // Safe stub for AOS to avoid "AOS is not defined" when inline inits
@@ -473,7 +472,8 @@
         media='all' />
     <!-- Load jQuery from CDN to avoid using a possibly corrupted local copy -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" id="jquery-core-js"></script>
-    <script src="<?php echo asset_url('wp-includes/js/jquery/jquery-migrate.min5589.js?ver=3.4.1'); ?>" id="jquery-migrate-js"></script>
+    <script src="<?php echo asset_url('wp-includes/js/jquery/jquery-migrate.min5589.js?ver=3.4.1'); ?>"
+        id="jquery-migrate-js"></script>
     <link rel="https://api.w.org/" href="wp-json/index.php " />
     <link rel="alternate" title="JSON" type="application/json" href="wp-json/wp/v2/pages/13.json" />
     <link rel="EditURI" type="application/rsd+xml" title="RSD" href="xmlrpc0db0.php?rsd" />

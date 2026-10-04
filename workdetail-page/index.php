@@ -3,14 +3,21 @@ include "../include/title.php";
 require_once '../include/db.php';
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-if (!$id) {
-    header("Location: ../work");
-    exit;
-}
+$project = false;
+$profile = [];
 
-$stmt = $pdo->prepare("SELECT * FROM projects WHERE id = ?");
-$stmt->execute([$id]);
-$project = $stmt->fetch(PDO::FETCH_ASSOC);
+if (isset($pdo) && $pdo) {
+    try {
+        $profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch() ?: [];
+        if ($id) {
+            $stmt = $pdo->prepare("SELECT * FROM projects WHERE id = ?");
+            $stmt->execute([$id]);
+            $project = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+}
 
 if (!$project) {
     header("Location: ../work");
@@ -53,7 +60,7 @@ include "../include/head.php";
                     <!-- Collect the nav links, forms, and other content for toggling -->
 
                     <?php
-                        include "../include/navigation.php";
+                    include "../include/navigation.php";
                     ?>
                     <!-- Dynamic cv link -->
                     <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
@@ -380,8 +387,7 @@ include "../include/head.php";
                                         <div class="container d-flex align-items-center justify-content-center"
                                             data-aos="zoom-in">
                                             <?php if ($nextProj): ?>
-                                                <a href="./?id=<?php echo $nextProj['id']; ?>"
-                                                    class="big-btn shadow-box">
+                                                <a href="./?id=<?php echo $nextProj['id']; ?>" class="big-btn shadow-box">
                                                     Next Project
                                                 </a>
                                             <?php endif; ?>

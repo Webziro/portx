@@ -1,17 +1,18 @@
 <?php
-function asset_url($path) {
-    // Use filesystem paths to figure out how deep the current script is relative to the app root
-    $script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']));
-    $app_root_dir = str_replace('\\', '/', realpath(__DIR__ . '/..'));
-    
-    $relative_path = str_replace($app_root_dir, '', $script_dir);
-    $relative_path = trim($relative_path, '/');
-    
-    if (empty($relative_path)) {
-        $depth = 0;
-    } else {
-        $depth = substr_count($relative_path, '/') + 1;
+if (!function_exists('asset_url')) {
+    function asset_url($path = '')
+    {
+        $app_root_dir = str_replace('\\', '/', realpath(__DIR__ . '/..') ?: dirname(__DIR__));
+        $script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME'] ?? ''));
+
+        if (!empty($app_root_dir) && !empty($script_dir) && strpos($script_dir, $app_root_dir) === 0) {
+            $relative_path = trim(substr($script_dir, strlen($app_root_dir)), '/');
+            $depth = empty($relative_path) ? 0 : count(explode('/', $relative_path));
+        } else {
+            $depth = 0;
+        }
+
+        return str_repeat('../', $depth) . ltrim($path, '/');
     }
-    
-    return str_repeat('../', $depth) . ltrim($path, '/');
 }
+?>

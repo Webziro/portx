@@ -2,7 +2,14 @@
 include "../include/title.php";
 require_once "../include/db.php";
 
-$profile = $pdo->query("SELECT * FROM profile WHERE id = 1")->fetch();
+$profile = [];
+if (isset($pdo) && $pdo) {
+    try {
+        $profile = $pdo->query("SELECT * FROM profile WHERE id = 1")->fetch() ?: [];
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,9 +43,9 @@ include "../include/head.php";
                     <!-- Collect the nav links, forms, and other content for toggling -->
 
                     <?php
-                        include "../include/navigation.php";
+                    include "../include/navigation.php";
                     ?>
-                     <!-- Dynamic cv link -->
+                    <!-- Dynamic cv link -->
                     <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
                         target="_blank">Download CV</a>
 
@@ -86,7 +93,8 @@ include "../include/head.php";
                                                             </div>
                                                             <div class="right">
                                                                 <span>Talk to me</span>
-                                                                <h5><?= htmlspecialchars($profile['email'] ?? '[EMAIL_ADDRESS]') ?></h5>
+                                                                <h5><?= htmlspecialchars($profile['email'] ?? '[EMAIL_ADDRESS]') ?>
+                                                                </h5>
                                                             </div>
                                                         </li>
                                                         <li class="d-flex align-items-center" data-aos="zoom-in">
@@ -95,16 +103,19 @@ include "../include/head.php";
                                                             </div>
                                                             <div class="right">
                                                                 <span>Contact Us</span>
-                                                                <h5><?= htmlspecialchars($profile['phone'] ?? '+234 808 379 2208') ?></h5>
+                                                                <h5><?= htmlspecialchars($profile['phone'] ?? '+234 808 379 2208') ?>
+                                                                </h5>
                                                             </div>
                                                         </li>
                                                     </ul>
 
                                                     <h4 data-aos="fade-up">Social Info</h4>
                                                     <ul class="social-links d-flex align-center" data-aos="zoom-in">
-                                                        <li><a target="_blank" class="shadow-box" href="https://x.com/Amazirostanley"><i
+                                                        <li><a target="_blank" class="shadow-box"
+                                                                href="https://x.com/Amazirostanley"><i
                                                                     class="iconoir-twitter"></i></a></li>
-                                                        <li><a target="_blank" class="shadow-box" href="https://www.linkedin.com/in/stanleyamaziro/"><i
+                                                        <li><a target="_blank" class="shadow-box"
+                                                                href="https://www.linkedin.com/in/stanleyamaziro/"><i
                                                                     class="iconoir-linkedin"></i></a></li>
                                                     </ul>
                                                 </div>

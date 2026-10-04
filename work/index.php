@@ -2,8 +2,16 @@
 include "../include/title.php";
 require_once "../include/db.php";
 
-// Fetch all projects from DB, ordered by display_order
-$projects = $pdo->query("SELECT * FROM projects ORDER BY display_order, created_at DESC")->fetchAll();
+$projects = [];
+$profile = [];
+if (isset($pdo) && $pdo) {
+    try {
+        $projects = $pdo->query("SELECT * FROM projects ORDER BY display_order, created_at DESC")->fetchAll() ?: [];
+        $profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch() ?: [];
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+}
 ?>
 
 <!DOCTYPE html>

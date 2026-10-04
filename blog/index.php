@@ -1,9 +1,17 @@
-<?php 
-    include "../include/title.php";
-    require_once "../include/db.php";
+<?php
+include "../include/title.php";
+require_once "../include/db.php";
 
-    // Fetch all blogs from DB
-    $blogs = $pdo->query("SELECT * FROM blogs ORDER BY display_order, created_at DESC")->fetchAll();
+$blogs = [];
+$profile = [];
+if (isset($pdo) && $pdo) {
+    try {
+        $blogs = $pdo->query("SELECT * FROM blogs ORDER BY display_order, created_at DESC")->fetchAll() ?: [];
+        $profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch() ?: [];
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,10 +20,10 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <!-- Head tag starts -->
-    <?php 
-        $title = "Blog - " . $title; 
-        include "../include/head.php";
-    ?> 
+<?php
+$title = "Blog - " . $title;
+include "../include/head.php";
+?>
 <!-- Head tag end -->
 
 <body
@@ -34,7 +42,7 @@
                 <div class="gx-row d-flex align-items-center justify-content-between">
                     <a href="../" class="logo">
                         <img src="../wp-content/uploads/logo.png" alt="Logo">
-                    </a>    
+                    </a>
                     <?php include "../include/navigation.php"; ?>
                     <!-- Dynamic cv link -->
                     <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
@@ -56,34 +64,37 @@
                 </h1>
 
                 <div class="row">
-                    <?php foreach ($blogs as $b): 
+                    <?php foreach ($blogs as $b):
                         $imgSrc = htmlspecialchars('../' . $b['image_path']);
-                        $url    = "detail?id=" . $b['id'];
-                    ?>
-                    <div class="col-md-4 mb-24" data-aos="zoom-in">
-                        <div class="project-item shadow-box">
-                            <a class="overlay-link" href="<?= $url ?>"></a>
-                            <img decoding="async" src="../wp-content/themes/gridx/assets/images/bg1.png" alt="img" class="bg-img">
-                            <div class="project-img">
-                                <img decoding="async" class="proj-img" src="<?= $imgSrc ?>" alt="">
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="project-info">
-                                    <p><?= htmlspecialchars($b['category']) ?> - <?= date('M d, Y', strtotime($b['created_at'])) ?></p>
-                                    <h2><?= htmlspecialchars($b['title']) ?></h2>
+                        $url = "detail?id=" . $b['id'];
+                        ?>
+                        <div class="col-md-4 mb-24" data-aos="zoom-in">
+                            <div class="project-item shadow-box">
+                                <a class="overlay-link" href="<?= $url ?>"></a>
+                                <img decoding="async" src="../wp-content/themes/gridx/assets/images/bg1.png" alt="img"
+                                    class="bg-img">
+                                <div class="project-img">
+                                    <img decoding="async" class="proj-img" src="<?= $imgSrc ?>" alt="">
                                 </div>
-                                <a href="<?= $url ?>" class="project-btn">
-                                    <img decoding="async" src="../wp-content/themes/gridx/assets/images/icon.svg" alt="img">
-                                </a>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="project-info">
+                                        <p><?= htmlspecialchars($b['category']) ?> -
+                                            <?= date('M d, Y', strtotime($b['created_at'])) ?></p>
+                                        <h2><?= htmlspecialchars($b['title']) ?></h2>
+                                    </div>
+                                    <a href="<?= $url ?>" class="project-btn">
+                                        <img decoding="async" src="../wp-content/themes/gridx/assets/images/icon.svg"
+                                            alt="img">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
         </section>
 
-<?php include '../include/footer.php'; ?>
+        <?php include '../include/footer.php'; ?>
 
     </main>
 
@@ -92,4 +103,5 @@
     <script src="../wp-content/themes/gridx/assets/js/main32d4.js?ver=6.8.3" id="gridx-main-js"></script>
     <script>AOS.init({ duration: 1500, once: true });</script>
 </body>
+
 </html>

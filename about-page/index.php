@@ -1,9 +1,19 @@
 <?php
 include "../include/title.php";
 require_once '../include/db.php';
-$profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch();
-$experiences = $pdo->query("SELECT * FROM credentials WHERE type='experience' ORDER BY display_order")->fetchAll();
-$educations = $pdo->query("SELECT * FROM credentials WHERE type='education'  ORDER BY display_order")->fetchAll();
+
+$profile = [];
+$experiences = [];
+$educations = [];
+if (isset($pdo) && $pdo) {
+    try {
+        $profile = $pdo->query("SELECT * FROM profile WHERE id=1")->fetch() ?: [];
+        $experiences = $pdo->query("SELECT * FROM credentials WHERE type='experience' ORDER BY display_order")->fetchAll() ?: [];
+        $educations = $pdo->query("SELECT * FROM credentials WHERE type='education' ORDER BY display_order")->fetchAll() ?: [];
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,20 +45,20 @@ include "../include/head.php";
                 <div class="gx-row d-flex align-items-center justify-content-between">
 
 
-                     <a href="../" class="logo">
+                    <a href="../" class="logo">
                         <img src="../wp-content/uploads/logo.png" alt="Logo">
                     </a>
-                    
+
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
 
                     <?php
-                        include "../include/navigation.php";
+                    include "../include/navigation.php";
                     ?>
 
                     <!-- Dynamic cv link -->
                     <a href="<?php echo htmlspecialchars($profile['cv_url'] ?? '#'); ?>" class="theme-btn"
-                        target="_blank">Download CV</a> 
+                        target="_blank">Download CV</a>
 
                     <!-- End Navigation -->
 
@@ -350,7 +360,7 @@ include "../include/head.php";
                                                             <!-- Start Profiles Box-->
 
                                                             <?php
-                                                                include "../include/socialMediaLinks.php";
+                                                            include "../include/socialMediaLinks.php";
                                                             ?>
 
                                                             <script>
@@ -378,8 +388,7 @@ include "../include/head.php";
                                                             <div data-aos="zoom-in" class="about-contact-box-wrap">
 
                                                                 <div class="about-contact-box info-box shadow-box">
-                                                                    <a class="overlay-link"
-                                                                        href="../contact-info"></a>
+                                                                    <a class="overlay-link" href="../contact-info"></a>
 
                                                                     <img decoding="async"
                                                                         src="../wp-content/themes/gridx/assets/images/bg1.png"
@@ -394,8 +403,7 @@ include "../include/head.php";
 
 
                                                                     <h2>Let's <br>work <span>together.</h2>
-                                                                    <a href="../contact-info"
-                                                                        class="about-btn">
+                                                                    <a href="../contact-info" class="about-btn">
 
 
                                                                         <img decoding="async"
@@ -431,8 +439,7 @@ include "../include/head.php";
 
                                                             <div data-aos="zoom-in" class="about-crenditials-box">
                                                                 <div class="info-box shadow-box h-full">
-                                                                    <a class="overlay-link"
-                                                                        href="../credential"></a>
+                                                                    <a class="overlay-link" href="../credential"></a>
 
 
                                                                     <img decoding="async"
@@ -451,8 +458,7 @@ include "../include/head.php";
                                                                             <h2>Credentials</h2>
                                                                         </div>
 
-                                                                        <a href="../credential"
-                                                                            class="about-btn">
+                                                                        <a href="../credential" class="about-btn">
 
                                                                             <img decoding="async"
                                                                                 src="../wp-content/themes/gridx/assets/images/icon.svg"
