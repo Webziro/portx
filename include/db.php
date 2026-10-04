@@ -41,6 +41,7 @@ if (!$pdo) {
 
 if ($pdo) {
     ensure_portfolio_schema($pdo);
+    seed_portfolio_data($pdo);
 }
 
 function ensure_portfolio_schema($pdo)
@@ -171,6 +172,11 @@ function seed_portfolio_data($pdo)
         return;
 
     try {
+        // Admin user (password: admin123)
+        $hash = '$2y$10$YVsOUSpmc5UvJdMkQG2Lhe26NPds3aVIIsto2PBiHcik8L4.3CXYi';
+        $pdo->exec("INSERT INTO users (id, username, password) VALUES (1, 'admin', '$hash')
+            ON DUPLICATE KEY UPDATE password=IF(password='' OR password IS NULL, '$hash', password)");
+
         // Profile
         $pdo->exec("INSERT INTO profile (id, full_name, title, bio, hero_image, work_preview_image, experience_start_year, clients_count, projects_count, cv_url, email, phone) 
             VALUES (1, 'STANLEY AMAZIRO.', 'A Software Engineer', 'Backend and Systems Engineer — Caching, Scaling, and DevOps Automation', 'wp-content/uploads/hero_1776762535.jpg', 'wp-content/uploads/2023/04/my-works.png', 2021, '+12', '+20', 'https://drive.google.com/file/d/1ff7nCTOvfDwFvs8w-y8nlx72l0pgSAQ4/view?usp=sharing', 'stanleyamaziro@gmail.com', '+2348083792208')
