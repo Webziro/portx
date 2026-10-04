@@ -24,9 +24,9 @@ if ($isLocal) {
 
 if (!$pdo) {
     try {
-        $db = 'huwesdio_stanley_db';
-        $user = 'huwesdio_stanley_db';
-        $pass = 'z4D7h98DENSbn9qQ4WfP';
+        $db = 'amaziron_portfolio';
+        $user = 'amaziron_portfolio';
+        $pass = 'bnFXDb8GcncGwx4ymGvp';
         $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
         $pdo = new PDO($dsn, $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
