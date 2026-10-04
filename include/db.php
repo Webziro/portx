@@ -126,6 +126,8 @@ function ensure_portfolio_schema($pdo)
         // Add any missing columns to existing tables safely
         $alters = [
             "ALTER TABLE profile ADD COLUMN cv_url VARCHAR(255)",
+            "ALTER TABLE profile ADD COLUMN email VARCHAR(255)",
+            "ALTER TABLE profile ADD COLUMN phone VARCHAR(255)",
             "ALTER TABLE profile ADD COLUMN experience_start_year INT DEFAULT 2021",
             "ALTER TABLE profile ADD COLUMN clients_count VARCHAR(20) DEFAULT '+12'",
             "ALTER TABLE profile ADD COLUMN projects_count VARCHAR(20) DEFAULT '+20'",
@@ -146,11 +148,21 @@ function ensure_portfolio_schema($pdo)
             }
         }
 
-        // Insert default profile if empty
-        $cnt = $pdo->query("SELECT COUNT(*) FROM profile")->fetchColumn();
-        if ($cnt == 0) {
-            $pdo->exec("INSERT INTO profile (id, full_name, title, bio, hero_image, work_preview_image, experience_start_year, clients_count, projects_count) 
-                VALUES (1, 'STANLEY AMAZIRO.', 'A Software Engineer', 'Backend and Systems Engineer — Caching, Scaling, and DevOps Automation', 'wp-content/uploads/2023/04/me.png', 'wp-content/uploads/2023/04/my-works.png', 2021, '+12', '+20')");
+        // Auto-seed data from seed_data.sql if available
+        $seedFile = __DIR__ . '/../seed_data.sql';
+        if (file_exists($seedFile)) {
+            $queries = file_get_contents($seedFile);
+            if (!empty($queries)) {
+                $statements = array_filter(array_map('trim', explode(";\n", $queries)));
+                foreach ($statements as $stmt) {
+                    if (!empty($stmt) && strpos($stmt, '--') !== 0) {
+                        try {
+                            $pdo->exec($stmt);
+                        } catch (\Exception $e) {
+                        }
+                    }
+                }
+            }
         }
     } catch (\Exception $e) {
         error_log("Schema sync warning: " . $e->getMessage());
