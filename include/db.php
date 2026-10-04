@@ -173,9 +173,9 @@ function seed_portfolio_data($pdo)
     try {
         // Profile
         $pdo->exec("INSERT INTO profile (id, full_name, title, bio, hero_image, work_preview_image, experience_start_year, clients_count, projects_count, cv_url, email, phone) 
-            VALUES (1, 'STANLEY AMAZIRO.', 'A Software Engineer', 'Backend and Systems Engineer — Caching, Scaling, and DevOps Automation', 'wp-content/uploads/hero_1776762535.jpg', 'wp-content/uploads/2023/04/my-works.png', 2021, '+12', '+20', 'https://drive.google.com/file/d/1oJ9Ulb9FM3dPRJ4GEwcua1a4Y6Z7Lus1/view?usp=sharing', 'stanleyamaziro@gmail.com', '+2348083792208')
+            VALUES (1, 'STANLEY AMAZIRO.', 'A Software Engineer', 'Backend and Systems Engineer — Caching, Scaling, and DevOps Automation', 'wp-content/uploads/hero_1776762535.jpg', 'wp-content/uploads/2023/04/my-works.png', 2021, '+12', '+20', 'https://drive.google.com/file/d/1ff7nCTOvfDwFvs8w-y8nlx72l0pgSAQ4/view?usp=sharing', 'stanleyamaziro@gmail.com', '+2348083792208')
             ON DUPLICATE KEY UPDATE 
-            full_name=VALUES(full_name), title=VALUES(title), bio=VALUES(bio), hero_image=VALUES(hero_image), cv_url=VALUES(cv_url), email=VALUES(email), phone=VALUES(phone)");
+            full_name=VALUES(full_name), title=VALUES(title), bio=VALUES(bio), hero_image=VALUES(hero_image), cv_url=VALUES(cv_url), email=VALUES(email), phone=VALUES(phone), experience_start_year=VALUES(experience_start_year), clients_count=VALUES(clients_count), projects_count=VALUES(projects_count)");
 
         // Services
         $services = [
