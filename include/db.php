@@ -41,7 +41,6 @@ if (!$pdo) {
 
 if ($pdo) {
     ensure_portfolio_schema($pdo);
-    seed_portfolio_data($pdo);
 }
 
 function ensure_portfolio_schema($pdo)
@@ -159,8 +158,10 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             }
         }
 
-        // Auto-seed data if tables are empty
-        seed_portfolio_data($pdo);
+        // Seed initial data only when tables are empty
+        if ((int) $pdo->query("SELECT COUNT(*) FROM profile")->fetchColumn() === 0) {
+            seed_portfolio_data($pdo);
+        }
     } catch (\Exception $e) {
         error_log("Schema sync warning: " . $e->getMessage());
     }
@@ -172,16 +173,13 @@ function seed_portfolio_data($pdo)
         return;
 
     try {
-        // Admin user (password: admin123)
+        // Admin user - only insert if no users exist
         $hash = '$2y$10$YVsOUSpmc5UvJdMkQG2Lhe26NPds3aVIIsto2PBiHcik8L4.3CXYi';
-        $pdo->exec("INSERT INTO users (id, username, password) VALUES (1, 'admin', '$hash')
-            ON DUPLICATE KEY UPDATE password=IF(password='' OR password IS NULL, '$hash', password)");
+        $pdo->exec("INSERT IGNORE INTO users (id, username, password) VALUES (1, 'admin', '$hash')");
 
         // Profile
-        $pdo->exec("INSERT INTO profile (id, full_name, title, bio, hero_image, work_preview_image, experience_start_year, clients_count, projects_count, cv_url, email, phone) 
-            VALUES (1, 'STANLEY AMAZIRO.', 'A Software Engineer', 'Backend and Systems Engineer — Caching, Scaling, and DevOps Automation', 'wp-content/uploads/hero_1776762535.jpg', 'wp-content/uploads/2023/04/my-works.png', 2021, '+12', '+20', 'https://drive.google.com/file/d/1ff7nCTOvfDwFvs8w-y8nlx72l0pgSAQ4/view?usp=sharing', 'stanleyamaziro@gmail.com', '+2348083792208')
-            ON DUPLICATE KEY UPDATE 
-            full_name=VALUES(full_name), title=VALUES(title), bio=VALUES(bio), hero_image=VALUES(hero_image), cv_url=VALUES(cv_url), email=VALUES(email), phone=VALUES(phone), experience_start_year=VALUES(experience_start_year), clients_count=VALUES(clients_count), projects_count=VALUES(projects_count)");
+        $pdo->exec("INSERT IGNORE INTO profile (id, full_name, title, bio, hero_image, work_preview_image, experience_start_year, clients_count, projects_count, cv_url, email, phone) 
+            VALUES (1, 'STANLEY AMAZIRO.', 'A Software Engineer', 'Backend and Systems Engineer — Caching, Scaling, and DevOps Automation', 'wp-content/uploads/hero_1776762535.jpg', 'wp-content/uploads/2023/04/my-works.png', 2021, '+12', '+20', 'https://drive.google.com/file/d/1ff7nCTOvfDwFvs8w-y8nlx72l0pgSAQ4/view?usp=sharing', 'stanleyamaziro@gmail.com', '+2348083792208')");
 
         // Services
         $services = [
@@ -190,7 +188,7 @@ function seed_portfolio_data($pdo)
             [3, 'iconoir-settings-cloud', 'DevOps', 'Setting up CI/CD pipelines, Docker containerisation, cloud deployments, and infrastructure automation.', 3],
             [4, 'iconoir-git-branch', 'Automation', 'Writing scripts and tools that eliminate repetitive manual workflows and boost operational efficiency.', 4]
         ];
-        $stmt = $pdo->prepare("INSERT INTO services (id, icon_class, label, description, display_order) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE icon_class=VALUES(icon_class), label=VALUES(label), description=VALUES(description), display_order=VALUES(display_order)");
+        $stmt = $pdo->prepare("INSERT IGNORE INTO services (id, icon_class, label, description, display_order) VALUES (?, ?, ?, ?, ?)");
         foreach ($services as $s) {
             $stmt->execute($s);
         }
@@ -203,7 +201,7 @@ function seed_portfolio_data($pdo)
             [4, 'Zitel Financials: Redesign & Functional Overhaul', 'Financials Services', 'Zitel Inc.', '2025', 'Web Design', 'Javascripy, React, PHP', 'Recruited to take over and revitalize Zitel Financials’ digital presence, I successfully redesigned and engineered their company website from the ground up.', 'wp-content/uploads/project_1776871154.png', 'wp-content/uploads/project_img2_1776871154.png', 'wp-content/uploads/project_img3_1776875353.png', 'wp-content/uploads/project_img4_1776875353.png', 'https://zitelfinancials.ca/', 0, 0],
             [5, 'SchoolsFocus: A Comprehensive School Management ERP', 'EPR Software', 'SchoolsFocus', '2024', 'Software Develoment', 'PHP, Next js, Typscript and Mongodb', 'I served as a lead developer for SchoolsFocus, a robust, all-in-one management platform designed to digitize the operations of primary and secondary schools.', 'wp-content/uploads/project_1776874886.png', 'wp-content/uploads/project_img2_1776874886.png', 'wp-content/uploads/project_img3_1776874886.png', 'wp-content/uploads/project_img4_1776874886.png', 'https://schoolsfocus.net/', 0, 0]
         ];
-        $stmt = $pdo->prepare("INSERT INTO projects (id, title, category, client, year, services, technologies, description, image_path, image2_path, image3_path, image4_path, live_url, is_featured, display_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE title=VALUES(title), category=VALUES(category), client=VALUES(client), year=VALUES(year), services=VALUES(services), technologies=VALUES(technologies), description=VALUES(description), image_path=VALUES(image_path), image2_path=VALUES(image2_path), image3_path=VALUES(image3_path), image4_path=VALUES(image4_path), live_url=VALUES(live_url), is_featured=VALUES(is_featured), display_order=VALUES(display_order)");
+        $stmt = $pdo->prepare("INSERT IGNORE INTO projects (id, title, category, client, year, services, technologies, description, image_path, image2_path, image3_path, image4_path, live_url, is_featured, display_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         foreach ($projects as $p) {
             $stmt->execute($p);
         }
@@ -214,7 +212,7 @@ function seed_portfolio_data($pdo)
             [2, 'Mastering Docker, Software Engineering, Automation: A Comprehensive Guide', 'wp-content/uploads/blog_1777621251.png', '', 'Discover the essential strategies and modern approaches to Docker...', 'Discover the essential strategies...', 'Stanley Amaziro', '', '', 0],
             [3, 'It\'s 2026. \'It Works On My Machine\' Is Dead. Long Live Docker.', 'wp-content/uploads/blog_1777645793.jpg', 'it-s-2026-it-works-on-my-machine-is-dead-long-live-docker', '<h3>The Ghost of \'Works on My Machine\'</h3><p>It\'s 2026...</p>', 'In 2026, relying solely on your local environment...', 'Stanley Amaziro', 'Software', 'dystopian vision, AI', 0]
         ];
-        $stmt = $pdo->prepare("INSERT INTO blogs (id, title, image_path, blog_url, content, excerpt, author_name, category, tags, display_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE title=VALUES(title), image_path=VALUES(image_path), blog_url=VALUES(blog_url), content=VALUES(content), excerpt=VALUES(excerpt), author_name=VALUES(author_name), category=VALUES(category), tags=VALUES(tags), display_order=VALUES(display_order)");
+        $stmt = $pdo->prepare("INSERT IGNORE INTO blogs (id, title, image_path, blog_url, content, excerpt, author_name, category, tags, display_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         foreach ($blogs as $b) {
             $stmt->execute($b);
         }
@@ -233,7 +231,7 @@ function seed_portfolio_data($pdo)
             [14, 'Diploma in Software Engineering', '', '2024 - 2025', 'Spent Academy', '', 'education', 1],
             [15, 'Diploma in Software Development', '', '2022 - 2022', 'Jamasoft Academy', '', 'education', 2]
         ];
-        $stmt = $pdo->prepare("INSERT INTO credentials (id, title, subtitle, date_range, organization, description, type, display_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE title=VALUES(title), subtitle=VALUES(subtitle), date_range=VALUES(date_range), organization=VALUES(organization), description=VALUES(description), type=VALUES(type), display_order=VALUES(display_order)");
+        $stmt = $pdo->prepare("INSERT IGNORE INTO credentials (id, title, subtitle, date_range, organization, description, type, display_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         foreach ($credentials as $c) {
             $stmt->execute($c);
         }
